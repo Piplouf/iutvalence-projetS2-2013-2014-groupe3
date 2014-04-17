@@ -3,6 +3,8 @@ public class Personnage {
 	
 	private int vie;
 	
+	private String Nom;
+	
 	private int vieMax;
 	
 	private int puissance;
