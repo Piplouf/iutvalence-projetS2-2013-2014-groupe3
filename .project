@@ -14,4 +14,21 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>docs/Planning S2.docx</name>
+			<type>1</type>
+			<location>G:/Documents/Planning S2.docx</location>
+		</link>
+		<link>
+			<name>docs/livrables/D1/Delivrable second jalon.docx</name>
+			<type>1</type>
+			<location>E:/IUT/Projet S2/Delivrable second jalon.docx</location>
+		</link>
+		<link>
+			<name>docs/livrables/D1/Delivrable second jalon.pdf</name>
+			<type>1</type>
+			<location>E:/IUT/Delivrable second jalon.pdf</location>
+		</link>
+	</linkedResources>
 </projectDescription>
