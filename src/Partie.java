@@ -9,4 +9,16 @@ public class Partie {
 		this.joueur = new Joueur[2];
 	}
 	
+	public void ajouterCarte(Carte carte){
+		this.carte = carte;
+	}
+	
+	public void ajouterPersonnage(){
+		
+	}
+	
+	public void commencerPartie(){
+		
+	}
+	
 }

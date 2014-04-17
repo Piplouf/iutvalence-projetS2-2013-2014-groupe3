@@ -15,5 +15,12 @@ public class Joueur {
 		this.numero = numero;
 	}
 	
+	/**
+	 * Renvoi l'attribut numero du joueur
+	 */
+	public int obtenirNumero(){
+		return this.numero;
+	}
+	
 
 }

@@ -12,6 +12,6 @@ public class PotionDeMana extends Objet{
 	}
 	
 	public int obtenirQuantité(){
-		
+		return 0;
 	}
 }

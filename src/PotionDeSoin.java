@@ -12,7 +12,7 @@ public class PotionDeSoin extends Objet {
 	}
 	
 	public int obtenirQuantité(){
-		
+		return 0;
 	}
 }
 
