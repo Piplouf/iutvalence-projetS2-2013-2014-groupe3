@@ -10,6 +10,10 @@ public abstract class Competence {
 		this.puissance = puissance;
 	}
 	
-	public abstract void utiliserCompetence();
+	public abstract void utiliserCompetence(Personnage cible);
+	
+	public int obtenirPuissance(){
+		return this.puissance;
+	}
 
 }

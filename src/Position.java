@@ -25,4 +25,12 @@ public class Position {
 		public int obtenirY(){
 			return this.y;
 		}
+		
+		public void modifierX(int x){
+			this.x = x;
+		}
+		
+		public void modifierY(int y){
+			this.y = y;
+		}
 }

@@ -3,10 +3,10 @@ public class Case {
 	
 	private boolean estPleine;
 	
-	private Personnage estOccupe;
+	private Perso estOccupe;
 
 	public Case(){
-		this.estOccupe = null;
+		this.estOccupe = new PersonnageVide();
 		this.estPleine = false;
 	}
 	
@@ -23,7 +23,7 @@ public class Case {
 	 * et false si elle n'est pas occupe
 	 * @return
 	 */
-	public Personnage estOccupe(){
+	public Perso estOccupe(){
 		return this.estOccupe;
 	}
 	
@@ -31,8 +31,8 @@ public class Case {
 		this.estPleine = modif;
 	}
 	
-	public void modifierEstOccupe(Personnage perso){
-		this.estOccupe = perso;
+	public void modifierEstOccupe(Perso perso){
+			this.estOccupe = perso;
 	}
 }
 

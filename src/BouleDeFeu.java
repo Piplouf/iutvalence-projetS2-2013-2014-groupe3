@@ -5,11 +5,11 @@ public class BouleDeFeu extends Competence {
 		super("Boule de feu",20);
 	}
 	
-	public void utiliserCompetence() {
-		// TODO Auto-generated method stub
+	public void utiliserCompetence(Personnage cible) {
+		cible.enleverVie(this.obtenirPuissance());
 		
 	}
-	
-	
 
+	  
+	
 }
