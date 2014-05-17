@@ -1,3 +1,5 @@
+package fr.projetS2_2013_2014_groupe3.jeu;
+
 
 public abstract class Competence {
 	
@@ -14,6 +16,10 @@ public abstract class Competence {
 	
 	public int obtenirPuissance(){
 		return this.puissance;
+	}
+	
+	public String toString(){
+		return( this.nom);
 	}
 
 }

@@ -1,32 +1,28 @@
+package fr.projetS2_2013_2014_groupe3.jeu;
+
 
 public class Carte {
 
-	private static final int TAILLE_Y_DEFAUT = 8;
-	private static final int TAILLE_X_DEFAUT = 8;
+	public static final int TAILLE_Y_DEFAUT = 8;
+	public static final int TAILLE_X_DEFAUT = 8;
+	
 	private Case[][] carte;
 	
-	public Carte(){
-		this.carte = new Case[TAILLE_X_DEFAUT][TAILLE_Y_DEFAUT];
-		for(int i=0; i < TAILLE_X_DEFAUT;i++){
-			for(int j=0; j < TAILLE_Y_DEFAUT;j++){
-				this.carte[i][j] = new Case();
-			}
-		}
-	}
+	public Carte(){}
 	
-	public Carte(Case[][] carteVoulue){
-		this.carte = new Case[TAILLE_X_DEFAUT][TAILLE_Y_DEFAUT];
-		this.carte = carteVoulue;
-	}
+	public Carte(Case[][] carteVoulue){};
 	
 	/**
 	 * Permet de deplacer le personnage
+	 * @return 
 	 */
-	public void deplacerPersonnage(Position position, Personnage perso){
+	public boolean deplacerPersonnage(Position position, Personnage perso, int numeroJoueur){
 		if(deplacementEstPossible(position) && nombreDeDeplacementEstSuffisant(position, perso)){
-			this.obtenirCasePersonnage(perso).modifierEstOccupe(new PersonnageVide());
-			this.carte[position.obtenirX()][position.obtenirY()].modifierEstOccupe(perso);
+			this.obtenirCasePersonnage(perso).enleverPersonnage();
+			this.carte[position.obtenirX()][position.obtenirY()].ajouterPersonnage(perso, numeroJoueur);
+			return true;
 		}
+		return false;
 	}
 	
 	private boolean nombreDeDeplacementEstSuffisant(Position position, Personnage perso) {
@@ -95,8 +91,8 @@ public class Carte {
 	/**
 	 * Actualise l'affichage de la carte
 	 */
-	public void actualiserCarte(){
-		
+	public Case[][] obtenirCarte(){
+		return this.carte;
 	}
 	
 	public int obtenirTailleEnX(){
@@ -106,5 +102,9 @@ public class Carte {
 	public int obtenirTailleEnY(){
 		if(this.carte.length==0) return 0;
 		else return this.carte[0].length;
+	}
+	
+	public void modifierCarte(Case[][] carte) {
+		this.carte = carte;
 	}
 }

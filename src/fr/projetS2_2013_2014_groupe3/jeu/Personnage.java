@@ -1,3 +1,5 @@
+package fr.projetS2_2013_2014_groupe3.jeu;
+
 
 public class Personnage extends Perso {
 	
@@ -14,6 +16,8 @@ public class Personnage extends Perso {
 	private int capaciteDeDeplacement;
 	
 	public final static int NOMBRE_DE_COMPETENCES_PAR_DEFAUT = 4;
+	
+	public final static int NOMBRE_TOTAL_DE_PERSONNAGES = 10;
 	
 	/**
 	 * Constructeur d'un personnage
@@ -34,8 +38,24 @@ public class Personnage extends Perso {
 		this.capaciteDeDeplacement = capaciteDeplacement;
 	}
 	
+	public String obtenirNom(){
+		return this.nom;
+	}
+	
 	public int obtenirVie(){
 		return vie;
+	}
+	
+	public int obtenirVieMax(){
+		return this.vieMax;
+	}
+	
+	public Competence obtenirCompetence(int num){
+		return this.competences[num];
+	}
+	
+	public int obtenirPuissance(){
+		return this.puissance;
 	}
 	
 	public int obtenirNombreDeplacement(){

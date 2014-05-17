@@ -1,3 +1,5 @@
+package fr.projetS2_2013_2014_groupe3.jeu;
+
 
 public class Position {
 
@@ -32,5 +34,9 @@ public class Position {
 		
 		public void modifierY(int y){
 			this.y = y;
+		}
+		
+		public Position obtenirPosition(){
+			return this;
 		}
 }

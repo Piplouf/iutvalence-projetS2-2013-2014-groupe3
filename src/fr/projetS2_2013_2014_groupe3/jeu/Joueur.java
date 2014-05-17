@@ -1,3 +1,5 @@
+package fr.projetS2_2013_2014_groupe3.jeu;
+
 
 public class Joueur {
 	
@@ -25,9 +27,12 @@ public class Joueur {
 		
 		Personnage perso = new Personnage("Bob", 100, 10, 3, compe);
 		
+		/*
 		for(int i = 0; i < NOMBRE_DE_PERSONNAGES_PAR_EQUIPE; i++){
 			this.equipe[i] = perso;
 		}
+		*/
+		
 	}
 	
 	public Joueur(Personnage[] persoVoulus, int numero){
@@ -43,6 +48,10 @@ public class Joueur {
 		return this.numero;
 	}
 	
+	public void ajouterEquipe(Personnage[] equipeDePerso){
+		this.equipe = equipeDePerso;
+	}
+	
 	public Personnage[] obtenirPersonnageDUneEquipe(){
 		return this.equipe;
 	}
@@ -51,15 +60,20 @@ public class Joueur {
 		return this.equipe[numeroPerso];
 	}
 	
-	public void ajouterJoueur(Personnage perso){
+	public boolean ajouterJoueur(Personnage perso){
 		
 		int i = 0;
 		while(this.equipe[i++] instanceof Personnage){
-			
+			if( i == 4)
+				break;
 		}
-		if(i == 4)
-			return;
-		this.equipe[i] = perso;
+		if(i < 4){
+			this.equipe[i] = perso;
+			return true;
+		}
+		else 
+			return false;
+		
 	}
 	
 
