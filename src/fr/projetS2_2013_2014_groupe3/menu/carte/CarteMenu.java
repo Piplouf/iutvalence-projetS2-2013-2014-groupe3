@@ -10,19 +10,31 @@ public class CarteMenu {
 	
 	private ImageIcon image;
 	
+	private String nom;
+	
 	public CarteMenu(){
 		this.carte = new Carte();
 		this.image = new ImageIcon("");
+		this.nom = "";
 	}
 	
-	public CarteMenu(Carte carteChoisi, ImageIcon img){
+	public CarteMenu(Carte carteChoisi, ImageIcon img, String name){
 		
 		this.carte = carteChoisi;
 		this.image = img;
+		this.nom = name;
+	}
+	
+	public String obtenirNom(){
+		return this.nom;
 	}
 	
 	public Carte obtenirCarte(){
 		return this.carte;
+	}
+	
+	public ImageIcon obtenirImage(){
+		return this.image;
 	}
 
 }

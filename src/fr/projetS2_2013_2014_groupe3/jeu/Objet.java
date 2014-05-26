@@ -5,9 +5,20 @@ public abstract class Objet {
 
 	private String nom;
 	
-	public Objet(String nom){
+	private TypeObjet type;
+	
+	public Objet(String nom, TypeObjet type){
 		this.nom = nom;
+		this.type = type;
 	}
 	
-	public abstract void utiliserObjet();
+	public abstract String utiliserObjet(Personnage perso);
+
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public TypeObjet getTypeObjet(){
+		return this.type;
+	}
 }

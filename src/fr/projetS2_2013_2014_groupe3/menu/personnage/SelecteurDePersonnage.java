@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 
 public class SelecteurDePersonnage extends JPanel{
 	
-	private Set<PersonnageMenu> persos;
-	
 	private MenuPersonnage ecranPerso;
 	
 	private JPanelPerso tousLesPersos;
@@ -22,9 +20,10 @@ public class SelecteurDePersonnage extends JPanel{
 	public SelecteurDePersonnage(MenuPersonnage ecran){
 		
 		this.ecranPerso = ecran;
-		this.persos = new HashSet();
-		
-		this.persos = new PersonnageMenu().listeHeros();
+		refresh();
+	}
+	
+	public void refresh(){
 		
 		this.tousLesPersos = new JPanelPerso();
 		
@@ -34,8 +33,8 @@ public class SelecteurDePersonnage extends JPanel{
 		
 		tousLesPersos.setLayout(grillePerso);
 		
-		for(PersonnageMenu perso : new PersonnageMenu().listeHeros()){
-			this.tousLesPersos.add(new BoutonPersonnage(perso, ecran, 120, 120));	
+		for(PersonnageMenu perso : new PersonnageMenu().listeHeros(this.ecranPerso.obtenirPartie(), this.ecranPerso.obtenirNumeroJoueur()+1)){
+			this.tousLesPersos.add(new BoutonPersonnage(perso, this.ecranPerso, 120, 120));	
 		}
 		
 		this.add(tousLesPersos);

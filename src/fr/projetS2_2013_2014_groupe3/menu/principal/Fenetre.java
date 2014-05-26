@@ -29,5 +29,11 @@ public class Fenetre extends JFrame{
 		this.setContentPane(panneau);
 	    this.setVisible(true);
 	}
+	
+	public void refresh(){
+		this.getContentPane().validate();
+		this.setVisible(true);
+		
+	}
 
 }

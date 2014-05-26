@@ -1,4 +1,4 @@
-package fr.projetS2_2013_2014_groupe3.menu.carte;
+package fr.projetS2_2013_2014_groupe3.jeuEnCours;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -16,7 +16,6 @@ import fr.projetS2_2013_2014_groupe3.jeu.Perso;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.PersonnageVide;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
-import fr.projetS2_2013_2014_groupe3.jeuEnCours.InterfacePartie;
 import fr.projetS2_2013_2014_groupe3.menu.personnage.PersonnageMenu;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
@@ -44,23 +43,7 @@ public class BoutonCarteEnJeu extends JButton {
 		this.position = posi;
 		this.numeroJoueur = this.uneCase.obtenirNumeroJoueur();
 
-		this.setPreferredSize(new Dimension(100, 100));
-		if (!(this.uneCase.estOccupe() instanceof PersonnageVide)) {
-			this.image = new PersonnageMenu()
-					.rechercheImagePersonnage((Personnage) this.uneCase
-							.estOccupe());
-			if (this.numeroJoueur == 1)
-				this.setBorder(BorderFactory.createLineBorder(Color.RED));
-			if (this.numeroJoueur == 2)
-				this.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		} else
-			this.image = new ImageIcon("img/case.png");
-		if (this.uneCase.estPleine()) {
-			this.setEnabled(false);
-			this.setBackground(Color.BLACK);
-			this.setBorderPainted(false);
-		}
-		this.setIcon(this.image);
+		InitGUI();
 
 		this.addActionListener(new ActionListener() {
 
@@ -80,23 +63,64 @@ public class BoutonCarteEnJeu extends JButton {
 					ecran.obtenirBoutonAttaquer().setEnabled(true);
 					ecran.obtenirBoutonDeplacer().setEnabled(true);
 				} else {
+					ecran.obtenirPersoSel().setText("");
 					ecran.obtenirBoutonAttaquer().setEnabled(false);
 					ecran.obtenirBoutonDeplacer().setEnabled(false);
 				}
+				
+				if(ecran.obtenirEstEnModeAttaque()){
+					modifierPosition();
+					ecran.modifierACliquerSurBoutonDeplacer(false);
+				}
 
-				if (ecran.obtenirACliquerSurBoutonDeplacer()){
-					boolean deplacementAReussi = partie.obtenirCarte().deplacerPersonnage(obtenirPosition(),
-							ecran.obtenirPersonnageCourant(), partie.obtenirNumJoueur());
-					if(deplacementAReussi){
-						partie.modifierNumeroJoueur();
-						ecran.obtenirFenetre().modifierPanneau(new InterfacePartie(ecran.obtenirFenetre(),partie));
-					}
-					else
-						ecran.modifierACliquerSurBoutonDeplacer(false);
+				if (ecran.obtenirACliquerSurBoutonDeplacer()) {
+					effectuerDeplacement();
 				}
 			}
 		});
 
+	}
+	
+	public void InitGUI(){
+		
+		this.setPreferredSize(new Dimension((int) 800 / this.partie.obtenirCarte()
+				.obtenirTailleEnY(), (int) 800 / this.partie.obtenirCarte()
+				.obtenirTailleEnX()));
+
+		if (!(this.uneCase.estOccupe() instanceof PersonnageVide)) {
+			this.image = new PersonnageMenu()
+					.rechercheImagePersonnage((Personnage) this.uneCase
+							.estOccupe(), this.partie);
+			if (this.numeroJoueur == 1)
+				this.setBorder(BorderFactory.createLineBorder(Color.RED));
+			if (this.numeroJoueur == 2)
+				this.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		} else
+			//this.image = new ImageIcon("img/case.png");
+			this.setText(this.position.toString());
+		if (this.uneCase.estPleine()) {
+			this.setEnabled(false);
+			this.setBackground(Color.BLACK);
+			this.setBorderPainted(false);
+		}
+		this.setIcon(this.image);
+	}
+	
+	public void effectuerDeplacement(){
+		boolean deplacementAReussi = this.partie.obtenirCarte()
+				.deplacerPersonnage(obtenirPosition(),
+						this.ecran.obtenirPersonnageCourant(),
+						this.partie.obtenirNumJoueur());
+		if (deplacementAReussi) {
+			this.partie.modifierNumeroJoueur();
+			ecran.refresh();
+		} else
+			this.ecran.modifierACliquerSurBoutonDeplacer(false);
+	}
+	
+	public void modifierPosition(){
+		this.ecran.obtenirMenuAttaque().rendreLesCompetencesDiponibles();
+		this.ecran.obtenirMenuAttaque().modifierCible(this.position);
 	}
 
 	public Perso obtenirPersoDansCase() {

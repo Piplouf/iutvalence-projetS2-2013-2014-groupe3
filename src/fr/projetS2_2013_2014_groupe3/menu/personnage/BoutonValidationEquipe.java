@@ -39,19 +39,9 @@ public class BoutonValidationEquipe extends JButton {
 							new MenuPersonnage(ecranPerso.obtenirFenetre(),
 									ecranPerso.obtenirPartie(), 1));
 				else
-					
 					 ecranPerso.obtenirFenetre().modifierPanneau( new
 					 MenuCarte(ecranPerso.obtenirFenetre(),
 					 ecranPerso.obtenirPartie()));
-					 
-					/*
-					 * ecranPerso.obtenirFenetre().modifierPanneau(
-					 
-							new InterfacePartie(ecranPerso.obtenirFenetre(),
-									ecranPerso.obtenirPartie()));
-					*/
-				;
-
 			}
 
 		});

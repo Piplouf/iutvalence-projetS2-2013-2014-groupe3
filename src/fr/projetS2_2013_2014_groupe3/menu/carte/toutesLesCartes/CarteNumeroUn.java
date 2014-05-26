@@ -6,11 +6,11 @@ import fr.projetS2_2013_2014_groupe3.jeu.Carte;
 import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
-import fr.projetS2_2013_2014_groupe3.menu.carte.BoutonCarteEnJeu;
+import fr.projetS2_2013_2014_groupe3.jeuEnCours.BoutonCarteEnJeu;
 
-public class CarteDeBase extends Carte {
+public class CarteNumeroUn extends Carte {
 
-	public CarteDeBase(Partie partie) {
+	public CarteNumeroUn(Partie partie) {
 	
 		this.modifierCarte(new Case[TAILLE_X_DEFAUT][TAILLE_Y_DEFAUT]);
 		

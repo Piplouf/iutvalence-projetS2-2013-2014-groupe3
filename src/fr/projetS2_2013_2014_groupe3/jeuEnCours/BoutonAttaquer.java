@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
-public class BoutonAttaquer extends JButton {
+public class BoutonAttaquer extends JButton implements ActionListener{
 	
 	private Fenetre fen;
 	
@@ -27,15 +27,14 @@ public class BoutonAttaquer extends JButton {
 		this.setPreferredSize(new Dimension(400,50));
 		this.setEnabled(false);
 		
-		this.addActionListener(new ActionListener(){
+		this.addActionListener(this);
+	}
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		
+		this.ecran.estEnModeAttaque(true);
+		this.ecran.modifierMenuJoueurEnMenuAttaque(this.ecran.obtenirPersonnageCourant());
 	}
 
 }

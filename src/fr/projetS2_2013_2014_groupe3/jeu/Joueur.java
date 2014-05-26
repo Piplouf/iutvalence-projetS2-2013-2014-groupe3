@@ -1,5 +1,8 @@
 package fr.projetS2_2013_2014_groupe3.jeu;
 
+import fr.projetS2_2013_2014_groupe3.competences.BouleDeFeu;
+import fr.projetS2_2013_2014_groupe3.competences.Competence;
+
 
 public class Joueur {
 	
@@ -9,7 +12,7 @@ public class Joueur {
 	
 	private int numero;
 	
-	private final static int NOMBRE_DE_PERSONNAGES_PAR_EQUIPE = 4;
+	public final static int NOMBRE_DE_PERSONNAGES_PAR_EQUIPE = 4;
 	
 	private static int nombreJoueurs = 1;
 	
@@ -19,19 +22,8 @@ public class Joueur {
 		this.equipe = new Personnage[NOMBRE_DE_PERSONNAGES_PAR_EQUIPE];
 		this.numero = nombreJoueurs++;
 		
-		Competence[] compe = new Competence[Personnage.NOMBRE_DE_COMPETENCES_PAR_DEFAUT];
-		
-		for(int j =0; j < Personnage.NOMBRE_DE_COMPETENCES_PAR_DEFAUT; j++){
-			compe[j] = new BouleDeFeu();
-		}
-		
-		Personnage perso = new Personnage("Bob", 100, 10, 3, compe);
-		
-		/*
-		for(int i = 0; i < NOMBRE_DE_PERSONNAGES_PAR_EQUIPE; i++){
-			this.equipe[i] = perso;
-		}
-		*/
+		this.sac.ajouterObjet(new PotionDeSoin(50), 10);
+		this.sac.ajouterObjet(new PotionDeDeplacement(2), 5);
 		
 	}
 	
@@ -46,6 +38,10 @@ public class Joueur {
 	 */
 	public int obtenirNumero(){
 		return this.numero;
+	}
+	
+	public Sac obtenirSac(){
+		return this.sac;
 	}
 	
 	public void ajouterEquipe(Personnage[] equipeDePerso){

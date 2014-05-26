@@ -13,12 +13,11 @@ public class Partie {
 		this.joueur = new Joueur[2];
 		this.joueur[0] = new Joueur();
 		this.joueur[1] = new Joueur();
-		this.carte = new Carte();
 		this.numeroJoueurTour = 1;
 	}
 	
 	public void ajouterCarte(Carte carte){
-		this.carte = carte;
+		this.carte = new Carte(carte.obtenirCarte());
 	}
 	
 	public void ajouterPersonnage(Personnage perso){
@@ -46,8 +45,6 @@ public class Partie {
 			posiDep.modifierY(posiDep.obtenirY() + 2);
 		}
 		this.carte.afficherCarte();
-		
-		//this.carte.deplacerPersonnage(new Position(3,1), this.joueur[0].obtenirPersonnage(0));
 	
 	}
 	
@@ -59,6 +56,10 @@ public class Partie {
 		return this.carte;
 	}
 	
+	public Joueur obtenirJoueurCourant(){
+		return this.obtenirJoueur(this.obtenirNumJoueur() - 1);
+	}
+	
 	public int obtenirNumJoueur(){
 		return this.numeroJoueurTour;
 	}
@@ -68,6 +69,13 @@ public class Partie {
 			this.numeroJoueurTour = 2;
 		else
 			this.numeroJoueurTour = 1;
+	}
+	
+	public int obtenirNumeroJoueurInverse(){
+		if(this.numeroJoueurTour == 1)
+			return 2;
+		else
+			return 1;
 	}
 	
 }

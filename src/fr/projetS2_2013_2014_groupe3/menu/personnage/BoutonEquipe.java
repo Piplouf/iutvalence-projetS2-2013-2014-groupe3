@@ -24,6 +24,8 @@ public class BoutonEquipe extends JButton{
 		
 		if(perso.obtenirPerso().obtenirNom() == "Null")
 			this.setEnabled(false);
+		else
+			this.setIcon(this.perso.obtenirImage());
 		
 		this.addActionListener(new ActionListener(){
 
@@ -45,14 +47,7 @@ public class BoutonEquipe extends JButton{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				if(retournerBouton().isEnabled())
-					ecranPerso.modifierCaracteristiques("<html>Nom : "+perso.obtenirPerso().obtenirNom()+"<br>"+
-						"Vie : "+perso.obtenirPerso().obtenirVie()+"<br>"+
-						"Puissance : "+perso.obtenirPerso().obtenirPuissance()+"<br>"+
-						"Capacité de déplacement : "+perso.obtenirPerso().obtenirNombreDeplacement()+"<br>"+
-						"Compétences :<br>"+perso.obtenirPerso().obtenirCompetence(0)+"<br>"+
-						perso.obtenirPerso().obtenirCompetence(1)+"<br>"+perso.obtenirPerso().obtenirCompetence(2)+"<br>"+
-						perso.obtenirPerso().obtenirCompetence(3)+"<br>"
-						);
+					ecranPerso.modifierCaracteristiques(perso.obtenirPerso().toString());
 				
 			}
 

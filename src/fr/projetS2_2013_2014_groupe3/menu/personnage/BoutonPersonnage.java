@@ -23,10 +23,10 @@ public class BoutonPersonnage extends JButton{
 		this.setPreferredSize(new Dimension(120,120));
 	}
 	
-	public BoutonPersonnage(final PersonnageMenu perso, MenuPersonnage ecran, int x, int y){
+	public BoutonPersonnage(final PersonnageMenu personnage, MenuPersonnage ecran, int x, int y){
 		
 		this.ecranPerso = ecran;
-		this.perso = perso;
+		this.perso = personnage;
 		this.setIcon(perso.obtenirImage());
 		this.setPreferredSize(new Dimension(x,y));
 		
@@ -34,15 +34,6 @@ public class BoutonPersonnage extends JButton{
 		this.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-					ecranPerso.modifierCaracteristiques("<html>Nom : "+perso.obtenirPerso().obtenirNom()+"<br>"+
-						"Vie : "+perso.obtenirPerso().obtenirVie()+"<br>"+
-						"Puissance : "+perso.obtenirPerso().obtenirPuissance()+"<br>"+
-						"Capacité de déplacement : "+perso.obtenirPerso().obtenirNombreDeplacement()+"<br>"+
-						"Compétences :<br>"+perso.obtenirPerso().obtenirCompetence(0)+"<br>"+
-						perso.obtenirPerso().obtenirCompetence(1)+"<br>"+perso.obtenirPerso().obtenirCompetence(2)+"<br>"+
-						perso.obtenirPerso().obtenirCompetence(3)+"<br>"
-						);
-					
 					if(ecranPerso.ajouterJoueurEquipe(perso))
 						griser();
 				}
@@ -59,15 +50,7 @@ public class BoutonPersonnage extends JButton{
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				ecranPerso.modifierCaracteristiques("<html>Nom : "+perso.obtenirPerso().obtenirNom()+"<br>"+
-						"Vie : "+perso.obtenirPerso().obtenirVie()+"<br>"+
-						"Puissance : "+perso.obtenirPerso().obtenirPuissance()+"<br>"+
-						"Capacité de déplacement : "+perso.obtenirPerso().obtenirNombreDeplacement()+"<br>"+
-						"Compétences :<br>"+perso.obtenirPerso().obtenirCompetence(0)+"<br>"+
-						perso.obtenirPerso().obtenirCompetence(1)+"<br>"+perso.obtenirPerso().obtenirCompetence(2)+"<br>"+
-						perso.obtenirPerso().obtenirCompetence(3)+"<br>"
-						);
-				
+				ecranPerso.modifierCaracteristiques(perso.obtenirPerso().toString());
 			}
 
 			@Override

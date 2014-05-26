@@ -14,19 +14,25 @@ public class BoutonPasserTour extends JButton {
 	private Fenetre fen;
 	
 	private Partie partie;
+	
+	private InterfacePartie ecran;
 
-	public BoutonPasserTour(Fenetre fen, Partie partie) {
+	public BoutonPasserTour(Fenetre fen, final Partie partie, InterfacePartie ecranEnCours) {
 		
 		super("Passer tour");
 		this.fen = fen;
 		this.partie = partie;
+		this.ecran = ecranEnCours;
+		
 		this.setPreferredSize(new Dimension(400,50));
 		
 		this.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				partie.modifierNumeroJoueur();
+				ecran.obtenirFenetre().modifierPanneau(new InterfacePartie(ecran.obtenirFenetre(),partie));
 				
 			}
 			

@@ -1,25 +1,29 @@
-package fr.projetS2_2013_2014_groupe3.jeu;
+package fr.projetS2_2013_2014_groupe3.menu.principal;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
-import fr.projetS2_2013_2014_groupe3.menu.principal.Menu;
+import fr.projetS2_2013_2014_groupe3.jeu.Options;
+import fr.projetS2_2013_2014_groupe3.menu.personnage.MenuPersonnage;
 
 
-public class MenuOption extends JPanel{
+@SuppressWarnings("serial")
+public class MenuOption extends JPanel implements ActionListener, ChangeListener{
 	
 	private JSlider slideLuminosite;
 
 	private JLabel luminosite;
+	
+	private JButton retour;
 	
 	private JPanel menu;
 	
@@ -45,12 +49,12 @@ public class MenuOption extends JPanel{
 	    luminosite.setText("Réglage luminosité");
 	    
 	    this.slideLuminosite = new JSlider();
-	    JButton quitter = new JButton("Retour");
-	    quitter.setPreferredSize(new Dimension(200,50));
+	    this.retour = new JButton("Retour");
+	    this.retour.setPreferredSize(new Dimension(200,50));
 	      
 	    conteneur1.add(luminosite);
 	    conteneur2.add(slideLuminosite);
-	    conteneur3.add(quitter);
+	    conteneur3.add(this.retour);
 	    conteneur4.add(vide);
 	    
 	    conteneurFinal.add(conteneur4);
@@ -63,8 +67,8 @@ public class MenuOption extends JPanel{
 	    this.add(menu);
 	    this.setVisible(true);
 	    
-	    this.slideLuminosite.addChangeListener(new ActionListenerLuminosite());
-	    quitter.addActionListener(new BoutonListenerQuitter());
+	    this.slideLuminosite.addChangeListener((ChangeListener) this);
+	    this.retour.addActionListener(this);
 	}
 	
 	public Fenetre obtenirFenetre(){
@@ -96,4 +100,28 @@ public class MenuOption extends JPanel{
 		    	changerMenuEnMenuPrincipal();
 		    }
 		  }
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		JComponent source = (JComponent) event.getSource();
+
+		if (source == this.retour)
+		{
+			changerMenuEnMenuPrincipal();
+			return;
+		}
+		
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent event) {
+		JComponent source = (JComponent) event.getSource();
+
+		if (source == this.slideLuminosite)
+		{
+			this.changerLuminosite(((JSlider)event.getSource()).getValue());
+			return;
+		}
+		
+	}
 }

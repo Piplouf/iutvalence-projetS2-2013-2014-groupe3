@@ -5,16 +5,17 @@ public class PotionDeSoin extends Objet {
 	
 	private int quantiteSoin;
 	
-	public PotionDeSoin(){
-		super ("Potin de soin");
+	public PotionDeSoin(int quantite){
+		super ("Potion de soin", TypeObjet.DEFENSIF);
+		this.quantiteSoin = quantite;
 	}
 	
-	public void utiliserObjet(){
-		
+	public String utiliserObjet(Personnage perso){
+		return "";
 	}
 	
 	public int obtenirQuantité(){
-		return 0;
+		return this.quantiteSoin;
 	}
 }
 

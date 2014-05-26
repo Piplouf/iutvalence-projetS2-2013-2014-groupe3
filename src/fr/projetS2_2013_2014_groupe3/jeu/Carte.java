@@ -8,10 +8,19 @@ public class Carte {
 	
 	private Case[][] carte;
 	
-	public Carte(){}
+	public Carte(){
+		this.carte = null;
+	}
 	
-	public Carte(Case[][] carteVoulue){};
+	public Carte(Case[][] carteVoulue){
+		this.carte = carteVoulue;
+	}
 	
+	public Carte(Carte carte) {
+		this.carte = new Case[carte.obtenirTailleEnX()][carte.obtenirTailleEnY()];
+		this.carte = carte.carte;
+	}
+
 	/**
 	 * Permet de deplacer le personnage
 	 * @return 
@@ -46,7 +55,7 @@ public class Carte {
 	 * @return la case sur laquelle il se trouve (null si personnage non trouvé)
 	 */
 	
-	private Position obtenirPositionPersonnage(Personnage perso){
+	public Position obtenirPositionPersonnage(Personnage perso){
 		for(int i = 0; i < obtenirTailleEnX();i++){
 			for(int j = 0; j < obtenirTailleEnY();j++){
 				if(perso == this.carte[i][j].estOccupe())
@@ -56,7 +65,7 @@ public class Carte {
 		return null;
 	}
 	
-	private Case obtenirCasePersonnage(Personnage perso){
+	public Case obtenirCasePersonnage(Personnage perso){
 		for(int i = 0; i < obtenirTailleEnX();i++){
 			for(int j = 0; j < obtenirTailleEnY();j++){
 				if(perso == this.carte[i][j].estOccupe())

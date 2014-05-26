@@ -42,6 +42,11 @@ public class MenuPersonnage extends JPanel{
 		this.partie = partie;
 		this.numeroJoueur = numero;
 		
+		InitGUI();
+	}
+	
+	public void InitGUI(){
+		
 		JPanel fin = new JPanel();
 		JPanel carac = new JPanel();
 		JPanel boutonValider = new JPanel();
@@ -98,7 +103,7 @@ public class MenuPersonnage extends JPanel{
 
 		
 		fin.add(gauche);
-		fin.add(separation);
+		//fin.add(separation);
 		fin.add(droite);
 
 		
@@ -119,7 +124,9 @@ public class MenuPersonnage extends JPanel{
 	
 	public boolean retirerJoueurEquipe(BoutonEquipe bouton, PersonnageMenu perso){
 		this.selecteur.reactiverBouton(perso);
-		return this.equipe.retirerPerso(bouton);
+		boolean ARetirer = this.equipe.retirerPerso(bouton);
+		this.revalidate();
+		return ARetirer;
 	}
 	
 	public Partie obtenirPartie(){
@@ -136,5 +143,9 @@ public class MenuPersonnage extends JPanel{
 	
 	public BoutonValidationEquipe obtenirBoutonValidation(){
 		return this.boutonValidation;
+	}
+	
+	public int obtenirNumeroJoueur(){
+		return this.numeroJoueur;
 	}
 }

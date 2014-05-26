@@ -39,4 +39,8 @@ public class Position {
 		public Position obtenirPosition(){
 			return this;
 		}
+		
+		public String toString(){
+			return "<html>X : "+this.obtenirX()+"<br>Y : "+this.obtenirY();
+		}
 }

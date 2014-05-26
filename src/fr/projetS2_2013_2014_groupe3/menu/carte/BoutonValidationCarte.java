@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import fr.projetS2_2013_2014_groupe3.jeuEnCours.InterfacePartie;
-import fr.projetS2_2013_2014_groupe3.menu.carte.toutesLesCartes.CarteDeBase;
+import fr.projetS2_2013_2014_groupe3.menu.carte.toutesLesCartes.CarteNumeroUn;
 
-public class BoutonValidationCarte extends JButton {
+public class BoutonValidationCarte extends JButton implements ActionListener{
 
 	private MenuCarte ecranPerso;
 
@@ -16,22 +16,18 @@ public class BoutonValidationCarte extends JButton {
 
 		this.ecranPerso = ecran;
 		this.setText("Valider");
-		this.setEnabled(true);
+		this.setEnabled(false);
 		this.setPreferredSize(new Dimension(200, 50));
-		this.addActionListener(new ActionListener() {
+		this.addActionListener(this);
 
-			/**
-			 * Se déclenche lorsque l'on appuie sur le bouton valider lors de la
-			 * séléction des personnages attribut l'equipe choisie au joueur
-			 */
-			public void actionPerformed(ActionEvent arg0) {
-				//ecranPerso.obtenirPartie().ajouterCarte(ecranPerso.obtenirBoutonCarte().obtenirCarteMenu().obtenirCarte());
-				ecranPerso.obtenirPartie().ajouterCarte(new CarteDeBase(ecranPerso.obtenirPartie()));
-				ecranPerso.obtenirFenetre().modifierPanneau(new InterfacePartie(ecranPerso.obtenirFenetre(), ecranPerso.obtenirPartie()));
-			}
+	}
 
-		});
-
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		this.ecranPerso.obtenirPartie().ajouterCarte(ecranPerso.obtenirBoutonCarte().obtenirCarteMenuCourante().obtenirCarte());
+		this.ecranPerso.obtenirFenetre().modifierPanneau(new InterfacePartie(ecranPerso.obtenirFenetre(), ecranPerso.obtenirPartie()));
+		
 	}
 
 }

@@ -70,5 +70,9 @@ public class MenuCarte extends JPanel {
 	public Fenetre obtenirFenetre(){
 		return this.fen;
 	}
+	
+	public BoutonValidationCarte obtenirBoutonValidation(){
+		return this.boutonValidation;
+	}
 
 }
