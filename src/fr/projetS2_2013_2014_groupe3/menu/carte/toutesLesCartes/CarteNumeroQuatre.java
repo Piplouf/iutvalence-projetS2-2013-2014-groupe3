@@ -1,19 +1,16 @@
 package fr.projetS2_2013_2014_groupe3.menu.carte.toutesLesCartes;
 
-import javax.swing.JPanel;
-
 import fr.projetS2_2013_2014_groupe3.jeu.Carte;
 import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
-import fr.projetS2_2013_2014_groupe3.jeuEnCours.BoutonCarteEnJeu;
 
-public class CarteNumeroUn extends Carte {
+public class CarteNumeroQuatre extends Carte {
 
-	public CarteNumeroUn(Partie partie) {
+	public CarteNumeroQuatre(Partie partie) {
 	
-		this.modifierCarte(new Case[TAILLE_X_DEFAUT][TAILLE_Y_DEFAUT]);
+		this.modifierCarte(new Case[15][15]);
 		
 		Personnage[] equipe1 = new Personnage[4];
 		Personnage[] equipe2 = new Personnage[4];
@@ -24,8 +21,8 @@ public class CarteNumeroUn extends Carte {
 		int i = 0;
 		int j = 0;
 		
-		for (int x = 0; x < TAILLE_X_DEFAUT; x++) {
-			for (int y = 0; y < TAILLE_Y_DEFAUT; y++) {
+		for (int x = 0; x < 15; x++) {
+			for (int y = 0; y < 15; y++) {
 				if (x == 0 && y == 1 || x == 1 && y == 3 || x == 0 && y == 5
 						|| x == 1 && y == 7)
 					this.obtenirCarte()[x][y] = new Case(equipe1[i++], 1, new Position(x,y));

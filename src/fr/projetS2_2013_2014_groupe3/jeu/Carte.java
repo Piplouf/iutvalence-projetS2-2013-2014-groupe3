@@ -113,6 +113,10 @@ public class Carte {
 		else return this.carte[0].length;
 	}
 	
+	public Case obtenirCase(int x, int y){
+		return this.carte[x][y];
+	}
+	
 	public void modifierCarte(Case[][] carte) {
 		this.carte = carte;
 	}

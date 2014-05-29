@@ -5,11 +5,15 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
+import fr.projetS2_2013_2014_groupe3.competences.CompetenceVide;
 import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Perso;
@@ -19,7 +23,8 @@ import fr.projetS2_2013_2014_groupe3.jeu.Position;
 import fr.projetS2_2013_2014_groupe3.menu.personnage.PersonnageMenu;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
-public class BoutonCarteEnJeu extends JButton {
+public class BoutonCarteEnJeu extends JButton implements ActionListener,
+		MouseListener {
 
 	private Partie partie;
 
@@ -45,59 +50,28 @@ public class BoutonCarteEnJeu extends JButton {
 
 		InitGUI();
 
-		this.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				// On vérifie que la case sur laquelle appuie le joueur est bien
-				// un personnage et si c'est un personnage que c'est bien
-				// l'un des siens
-				if (uneCase.estOccupe() instanceof Personnage
-						&& uneCase.obtenirNumeroJoueur() == partieEnCours
-								.obtenirNumJoueur()) {
-					ecran.obtenirPersoSel().setText(
-							((Personnage) uneCase.estOccupe()).obtenirNom());
-					ecran.modifierPersonnageCourant((Personnage) uneCase
-							.estOccupe());
-					ecran.obtenirBoutonAttaquer().setEnabled(true);
-					ecran.obtenirBoutonDeplacer().setEnabled(true);
-				} else {
-					ecran.obtenirPersoSel().setText("");
-					ecran.obtenirBoutonAttaquer().setEnabled(false);
-					ecran.obtenirBoutonDeplacer().setEnabled(false);
-				}
-				
-				if(ecran.obtenirEstEnModeAttaque()){
-					modifierPosition();
-					ecran.modifierACliquerSurBoutonDeplacer(false);
-				}
-
-				if (ecran.obtenirACliquerSurBoutonDeplacer()) {
-					effectuerDeplacement();
-				}
-			}
-		});
+		this.addActionListener(this);
+		this.addMouseListener(this);
 
 	}
-	
-	public void InitGUI(){
+
+	public void InitGUI() {
 		
-		this.setPreferredSize(new Dimension((int) 800 / this.partie.obtenirCarte()
-				.obtenirTailleEnY(), (int) 800 / this.partie.obtenirCarte()
-				.obtenirTailleEnX()));
+		this.setContentAreaFilled(false);
+		this.setPreferredSize(new Dimension((int) 800
+				/ this.partie.obtenirCarte().obtenirTailleEnY(), (int) 800
+				/ this.partie.obtenirCarte().obtenirTailleEnX()));
 
 		if (!(this.uneCase.estOccupe() instanceof PersonnageVide)) {
-			this.image = new PersonnageMenu()
-					.rechercheImagePersonnage((Personnage) this.uneCase
-							.estOccupe(), this.partie);
+			this.image = new PersonnageMenu().rechercheImagePersonnage(
+					(Personnage) this.uneCase.estOccupe(), this.partie);
 			if (this.numeroJoueur == 1)
 				this.setBorder(BorderFactory.createLineBorder(Color.RED));
 			if (this.numeroJoueur == 2)
 				this.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 		} else
-			//this.image = new ImageIcon("img/case.png");
-			this.setText(this.position.toString());
+			this.image = new ImageIcon("img/case.png");
+			//this.setText(this.position.toString());
 		if (this.uneCase.estPleine()) {
 			this.setEnabled(false);
 			this.setBackground(Color.BLACK);
@@ -105,8 +79,8 @@ public class BoutonCarteEnJeu extends JButton {
 		}
 		this.setIcon(this.image);
 	}
-	
-	public void effectuerDeplacement(){
+
+	public void effectuerDeplacement() {
 		boolean deplacementAReussi = this.partie.obtenirCarte()
 				.deplacerPersonnage(obtenirPosition(),
 						this.ecran.obtenirPersonnageCourant(),
@@ -117,10 +91,19 @@ public class BoutonCarteEnJeu extends JButton {
 		} else
 			this.ecran.modifierACliquerSurBoutonDeplacer(false);
 	}
-	
-	public void modifierPosition(){
-		this.ecran.obtenirMenuAttaque().rendreLesCompetencesDiponibles();
-		this.ecran.obtenirMenuAttaque().modifierCible(this.position);
+
+	public void modifierEnZoneQuiVaEtreAttaquer(boolean test) {
+		if(test)
+			this.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+		else
+			if(this.uneCase.estOccupe() instanceof PersonnageVide)
+				this.setBorder(UIManager.getBorder("Button.border"));
+			else{
+				if(this.numeroJoueur == 1)
+					this.setBorder(BorderFactory.createLineBorder(Color.RED));
+				else
+					this.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			}
 	}
 
 	public Perso obtenirPersoDansCase() {
@@ -129,6 +112,92 @@ public class BoutonCarteEnJeu extends JButton {
 
 	public Position obtenirPosition() {
 		return this.position;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+
+		if (uneCase.estOccupe() instanceof Personnage
+				&& uneCase.obtenirNumeroJoueur() == this.partie
+						.obtenirNumJoueur()) {
+			ecran.obtenirPersoSel().setText(
+					((Personnage) uneCase.estOccupe()).obtenirNom());
+			ecran.modifierPersonnageCourant((Personnage) uneCase.estOccupe());
+			ecran.obtenirBoutonAttaquer().setEnabled(true);
+			ecran.obtenirBoutonDeplacer().setEnabled(true);
+		} else {
+			ecran.obtenirPersoSel().setText("");
+			ecran.obtenirBoutonAttaquer().setEnabled(false);
+			ecran.obtenirBoutonDeplacer().setEnabled(false);
+		}
+
+		if (ecran.obtenirEstEnModeAttaque()) {
+			if (!(ecran.obtenirMenuAttaque()
+					.obtenirCompetenceVoulantEtreLancer() instanceof CompetenceVide)){
+				ecran.obtenirMenuAttaque()
+						.obtenirCompetenceVoulantEtreLancer()
+						.utiliserCompetence(
+								this.ecran.obtenirMenuAttaque().obtenirPerso(),
+								this.position);
+			this.ecran.modifierMenuAttaqueEnMenuJoueur();
+			this.ecran.estEnModeAttaque(false);
+			this.ecran.refresh();
+			}
+
+		}
+
+		if (ecran.obtenirACliquerSurBoutonDeplacer()) {
+			effectuerDeplacement();
+		}
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+
+		if (ecran.obtenirEstEnModeAttaque()) {
+			if (!(ecran.obtenirMenuAttaque()
+					.obtenirCompetenceVoulantEtreLancer() instanceof CompetenceVide))
+				this.ecran.afficherZoneAffecterParCompetences(ecran.obtenirMenuAttaque()
+						.obtenirCompetenceVoulantEtreLancer()
+						.retournerZoneAffecterParAttaque(
+								this.ecran.obtenirMenuAttaque().obtenirPerso(),
+								this.position));
+		}
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		
+		if (ecran.obtenirEstEnModeAttaque()) {
+			if (!(ecran.obtenirMenuAttaque()
+					.obtenirCompetenceVoulantEtreLancer() instanceof CompetenceVide))
+				this.ecran.retirerZoneAffecterParCompetences(ecran.obtenirMenuAttaque()
+						.obtenirCompetenceVoulantEtreLancer()
+						.retournerZoneAffecterParAttaque(
+								this.ecran.obtenirMenuAttaque().obtenirPerso(),
+								this.position));
+		}
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

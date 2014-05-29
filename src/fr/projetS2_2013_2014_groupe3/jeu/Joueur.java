@@ -2,6 +2,8 @@ package fr.projetS2_2013_2014_groupe3.jeu;
 
 import fr.projetS2_2013_2014_groupe3.competences.BouleDeFeu;
 import fr.projetS2_2013_2014_groupe3.competences.Competence;
+import fr.projetS2_2013_2014_groupe3.objets.PotionDeDeplacement;
+import fr.projetS2_2013_2014_groupe3.objets.PotionDeSoin;
 
 
 public class Joueur {

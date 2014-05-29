@@ -1,7 +1,9 @@
 package fr.projetS2_2013_2014_groupe3.menu.carte;
 
+import java.awt.Frame;
 import java.awt.GridLayout;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import fr.projetS2_2013_2014_groupe3.jeu.Case;
@@ -54,9 +56,13 @@ public class ModelisationCarte extends JPanel {
 		this.add(conteneurFinal);
 
 		this.setVisible(true);
-		this.fen.setDefaultLookAndFeelDecorated(false);
-		this.fen.setExtendedState(this.fen.MAXIMIZED_BOTH);
+		JFrame.setDefaultLookAndFeelDecorated(false);
+		this.fen.setExtendedState(Frame.MAXIMIZED_BOTH);
 		
+	}
+	
+	public BoutonCarteEnJeu obtenirBoutonsAPosition(Position position){
+		return this.boutons[position.obtenirX()][position.obtenirY()];
 	}
 
 }

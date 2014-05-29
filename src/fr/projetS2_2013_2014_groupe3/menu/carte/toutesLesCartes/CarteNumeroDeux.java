@@ -1,17 +1,14 @@
 package fr.projetS2_2013_2014_groupe3.menu.carte.toutesLesCartes;
 
-import javax.swing.JPanel;
-
 import fr.projetS2_2013_2014_groupe3.jeu.Carte;
 import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
-import fr.projetS2_2013_2014_groupe3.jeuEnCours.BoutonCarteEnJeu;
 
-public class CarteNumeroUn extends Carte {
+public class CarteNumeroDeux extends Carte {
 
-	public CarteNumeroUn(Partie partie) {
+	public CarteNumeroDeux(Partie partie) {
 	
 		this.modifierCarte(new Case[TAILLE_X_DEFAUT][TAILLE_Y_DEFAUT]);
 		
@@ -32,11 +29,6 @@ public class CarteNumeroUn extends Carte {
 				else if (x == 7 && y == 0 || x == 6 && y == 2 || x == 7
 						&& y == 4 || x == 6 && y == 6)
 					this.obtenirCarte()[x][y] = new Case(equipe2[j++], 2, new Position(x,y));
-				else if (x == 3 && y == 0 || x == 4 && y == 0 || x == 3
-						&&  y == 2
-						|| x == 4 && y == 2 || x == 3 && y == 5 || x == 4
-						&& y == 5 || x == 3 && y == 7 || x == 4 && y == 7)
-					this.obtenirCarte()[x][y] = new Case(true, new Position(x,y));
 				else
 					this.obtenirCarte()[x][y] = new Case(new Position(x,y));
 			}

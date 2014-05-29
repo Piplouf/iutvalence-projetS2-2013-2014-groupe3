@@ -114,6 +114,11 @@ public class Personnage extends Perso {
 				+ this.puissance);
 	}
 	
+	public void rajouterVie(int vie){
+		if(this.vie + vie > this.vieMax)
+			this.vie = this.vieMax;
+	}
+	
 	public void enleverVie(int vie){
 		if(this.vie - vie < 0)
 			this.vie = 0;

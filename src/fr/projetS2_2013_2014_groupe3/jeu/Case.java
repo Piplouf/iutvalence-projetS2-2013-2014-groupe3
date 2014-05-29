@@ -8,22 +8,27 @@ public class Case {
 	private Perso estOccupe;
 	
 	private int numeroJoueur;
+	
+	private Position position;
 
-	public Case(){
+	public Case(Position position){
 		this.estOccupe = new PersonnageVide();
 		this.estPleine = false;
 		this.numeroJoueur = 0;
+		this.position = position;
 	}
 	
-	public Case(Personnage perso, int num){
+	public Case(Personnage perso, int num, Position position){
 		this.estOccupe = perso;
 		this.estPleine = false;
+		this.position = position;
 		this.numeroJoueur = num;
 	}
 	
-	public Case(boolean estPleine){
+	public Case(boolean estPleine, Position position){
 		this.estOccupe = new PersonnageVide();
 		this.estPleine = estPleine;
+		this.position = position;
 		this.numeroJoueur = 0;
 	}
 	
@@ -65,6 +70,10 @@ public class Case {
 	
 	public void modifierEstOccupe(Perso perso){
 			this.estOccupe = perso;
+	}
+	
+	public Position obtenirPosition(){
+		return this.position;
 	}
 }
 

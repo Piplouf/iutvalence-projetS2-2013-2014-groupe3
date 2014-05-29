@@ -3,11 +3,13 @@ package fr.projetS2_2013_2014_groupe3.competences;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Perso;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.PersonnageVide;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
+import fr.projetS2_2013_2014_groupe3.jeuEnCours.BoutonCarteEnJeu;
 
 public abstract class Competence {
 
@@ -18,10 +20,11 @@ public abstract class Competence {
 	private Partie partie;
 
 	private int portee;
-	
+
 	private TypeAttaque type;
 
-	public Competence(Partie partie, String nom, int puissance, int portee, TypeAttaque type) {
+	public Competence(Partie partie, String nom, int puissance, int portee,
+			TypeAttaque type) {
 		this.partie = partie;
 		this.nom = nom;
 		this.puissance = puissance;
@@ -32,6 +35,9 @@ public abstract class Competence {
 	public abstract boolean utiliserCompetence(Personnage lanceur,
 			Position cible);
 
+	public abstract ArrayList<Case> retournerZoneAffecterParAttaque(
+			Personnage lanceur, Position cible);
+
 	public int obtenirPuissance() {
 		return this.puissance;
 	}
@@ -39,8 +45,8 @@ public abstract class Competence {
 	public void modifierPartie(Partie partie) {
 		this.partie = partie;
 	}
-	
-	public int obtenirPortee(){
+
+	public int obtenirPortee() {
 		return this.portee;
 	}
 
@@ -77,128 +83,152 @@ public abstract class Competence {
 		return Direction.NULLE;
 	}
 
-	public Perso determinerPremiereCibleSurPassage(
+	public ArrayList<Case> determinerPremiereCibleSurPassage(
 			Direction directionCompetence, Personnage lanceur) {
 
 		int nombreCaseParcouru = 1;
 		Perso perso = new PersonnageVide();
+		ArrayList<Case> cases = new ArrayList<Case>();
 
 		switch (directionCompetence) {
 
 		case HAUT: {
 			while (nombreCaseParcouru != (this.portee + 1)
-					&& perso instanceof PersonnageVide && (this.retournerPositionPersonnageEnX(lanceur) - nombreCaseParcouru) > 0) {
+					&& perso instanceof PersonnageVide
+					&& (this.retournerPositionPersonnageEnX(lanceur) - nombreCaseParcouru) >= 0) {
 				perso = this.partie.obtenirCarte().obtenirCarte()[this
 						.retournerPositionPersonnageEnX(lanceur)
 						- nombreCaseParcouru][this
 						.retournerPositionPersonnageEnY(lanceur)].estOccupe();
+				cases.add(this.partie.obtenirCarte().obtenirCarte()[this
+						.retournerPositionPersonnageEnX(lanceur)
+						- nombreCaseParcouru][this
+						.retournerPositionPersonnageEnY(lanceur)]);
 				if (this.nEstPasDansLaMemeEquipe(perso))
-					perso = new PersonnageVide();
+					return cases;
+				perso = new PersonnageVide();
 				nombreCaseParcouru++;
 			}
-			return perso;
+			return cases;
 		}
 		case BAS: {
 			while (nombreCaseParcouru != (this.portee + 1)
-					&& perso instanceof PersonnageVide && (this.retournerPositionPersonnageEnX(lanceur) + nombreCaseParcouru) < 8) {
-				perso = this.partie.obtenirCarte().obtenirCarte()[this
-						.retournerPositionPersonnageEnX(lanceur)
-						+ nombreCaseParcouru][this
-						.retournerPositionPersonnageEnY(lanceur)].estOccupe();
+					&& perso instanceof PersonnageVide
+					&& (this.retournerPositionPersonnageEnX(lanceur) + nombreCaseParcouru) < this.partie.obtenirCarte().obtenirTailleEnX()) {
+				int x = this.retournerPositionPersonnageEnX(lanceur);
+				int y = this.retournerPositionPersonnageEnY(lanceur);
+				perso = this.partie
+						.obtenirCarte()
+						.obtenirCase(
+								this.retournerPositionPersonnageEnX(lanceur)
+										+ nombreCaseParcouru,
+								this.retournerPositionPersonnageEnY(lanceur))
+						.estOccupe();
+				Case laCase = this.partie.obtenirCarte().obtenirCase(
+						x + nombreCaseParcouru, y);
+				cases.add(laCase);
 				if (this.nEstPasDansLaMemeEquipe(perso))
-					perso = new PersonnageVide();
+					return cases;
+				perso = new PersonnageVide();
 				nombreCaseParcouru++;
 			}
-			return perso;
+			return cases;
 		}
 		case DROITE: {
 			while (nombreCaseParcouru != (this.portee + 1)
-					&& perso instanceof PersonnageVide && (this.retournerPositionPersonnageEnY(lanceur) + nombreCaseParcouru) < 8) {
+					&& perso instanceof PersonnageVide
+					&& (this.retournerPositionPersonnageEnY(lanceur) + nombreCaseParcouru) < this.partie.obtenirCarte().obtenirTailleEnY()) {
 				perso = this.partie.obtenirCarte().obtenirCarte()[this
 						.retournerPositionPersonnageEnX(lanceur)][this
 						.retournerPositionPersonnageEnY(lanceur)
 						+ nombreCaseParcouru].estOccupe();
+				cases.add(this.partie.obtenirCarte().obtenirCarte()[this
+						.retournerPositionPersonnageEnX(lanceur)][this
+						.retournerPositionPersonnageEnY(lanceur)
+						+ nombreCaseParcouru]);
 				if (this.nEstPasDansLaMemeEquipe(perso))
-					perso = new PersonnageVide();
+					return cases;
+				perso = new PersonnageVide();
 				nombreCaseParcouru++;
 			}
-			return perso;
+			return cases;
 		}
 		case GAUCHE: {
 			while (nombreCaseParcouru != (this.portee + 1)
-					&& perso instanceof PersonnageVide && (this.retournerPositionPersonnageEnY(lanceur) - nombreCaseParcouru) > 0) {
+					&& perso instanceof PersonnageVide
+					&& (this.retournerPositionPersonnageEnY(lanceur) - nombreCaseParcouru) >= 0) {
 				perso = this.partie.obtenirCarte().obtenirCarte()[this
 						.retournerPositionPersonnageEnX(lanceur)][this
 						.retournerPositionPersonnageEnY(lanceur)
 						- nombreCaseParcouru].estOccupe();
+				cases.add(this.partie.obtenirCarte().obtenirCarte()[this
+						.retournerPositionPersonnageEnX(lanceur)][this
+						.retournerPositionPersonnageEnY(lanceur)
+						- nombreCaseParcouru]);
 				if (this.nEstPasDansLaMemeEquipe(perso))
-					perso = new PersonnageVide();
+					return cases;
+				perso = new PersonnageVide();
 				nombreCaseParcouru++;
 			}
-			return perso;
+			return cases;
 		}
 		default:
-			return new PersonnageVide();
+			return cases;
 		}
 	}
-	
-	public ArrayList<Personnage> determinerPersonnageDansUneLigneDroite(Direction direction, Personnage lanceur){
-		
-		ArrayList<Personnage> liste = new ArrayList<Personnage>();
+
+	public ArrayList<Case> determinerPersonnageDansUneLigneDroite(
+			Direction direction, Personnage lanceur) {
+
+		ArrayList<Case> liste = new ArrayList<Case>();
 		int nombreCaseParcouru = 1;
-		
+
 		Perso perso = new PersonnageVide();
-		
+
 		switch (direction) {
 
 		case HAUT: {
 			while (nombreCaseParcouru != (this.portee + 1)
-					&& (this.retournerPositionPersonnageEnX(lanceur) - nombreCaseParcouru) > 0) {
-				perso = this.partie.obtenirCarte().obtenirCarte()[this
+					&& (this.retournerPositionPersonnageEnX(lanceur) - nombreCaseParcouru) >= 0) {
+				liste.add(this.partie.obtenirCarte().obtenirCarte()[this
 						.retournerPositionPersonnageEnX(lanceur)
 						- nombreCaseParcouru][this
-						.retournerPositionPersonnageEnY(lanceur)].estOccupe();
-				if (this.nEstPasDansLaMemeEquipe(perso))
-					liste.add((Personnage) perso);
+						.retournerPositionPersonnageEnY(lanceur)]);
 				nombreCaseParcouru++;
 			}
 			return liste;
 		}
 		case BAS: {
 			while (nombreCaseParcouru != (this.portee + 1)
-					&& (this.retournerPositionPersonnageEnX(lanceur) + nombreCaseParcouru) < 8) {
-				perso = this.partie.obtenirCarte().obtenirCarte()[this
+					&& (this.retournerPositionPersonnageEnX(lanceur) + nombreCaseParcouru) < this.partie
+							.obtenirCarte().obtenirTailleEnX()) {
+				liste.add(this.partie.obtenirCarte().obtenirCarte()[this
 						.retournerPositionPersonnageEnX(lanceur)
 						+ nombreCaseParcouru][this
-						.retournerPositionPersonnageEnY(lanceur)].estOccupe();
-				if (this.nEstPasDansLaMemeEquipe(perso))
-					liste.add((Personnage) perso);
+						.retournerPositionPersonnageEnY(lanceur)]);
 				nombreCaseParcouru++;
 			}
 			return liste;
 		}
 		case DROITE: {
 			while (nombreCaseParcouru != (this.portee + 1)
-					&& (this.retournerPositionPersonnageEnY(lanceur) + nombreCaseParcouru) < 8) {
-				perso = this.partie.obtenirCarte().obtenirCarte()[this
+					&& (this.retournerPositionPersonnageEnY(lanceur) + nombreCaseParcouru) < this.partie
+							.obtenirCarte().obtenirTailleEnY()) {
+				liste.add(this.partie.obtenirCarte().obtenirCarte()[this
 						.retournerPositionPersonnageEnX(lanceur)][this
 						.retournerPositionPersonnageEnY(lanceur)
-						+ nombreCaseParcouru].estOccupe();
-				if (this.nEstPasDansLaMemeEquipe(perso))
-					liste.add((Personnage) perso);
+						+ nombreCaseParcouru]);
 				nombreCaseParcouru++;
 			}
 			return liste;
 		}
 		case GAUCHE: {
 			while (nombreCaseParcouru != (this.portee + 1)
-					&& (this.retournerPositionPersonnageEnY(lanceur) - nombreCaseParcouru) > 0) {
-				perso = this.partie.obtenirCarte().obtenirCarte()[this
+					&& (this.retournerPositionPersonnageEnY(lanceur) - nombreCaseParcouru) >= 0) {
+				liste.add(this.partie.obtenirCarte().obtenirCarte()[this
 						.retournerPositionPersonnageEnX(lanceur)][this
 						.retournerPositionPersonnageEnY(lanceur)
-						- nombreCaseParcouru].estOccupe();
-				if (this.nEstPasDansLaMemeEquipe(perso))
-					liste.add((Personnage) perso);
+						- nombreCaseParcouru]);
 				nombreCaseParcouru++;
 			}
 			return liste;
@@ -208,52 +238,146 @@ public abstract class Competence {
 		}
 	}
 
-	
-	public ArrayList<Personnage> determinerPersonnageDansUneZoneSpherique(int portee, Position posDepart){
-		
-		ArrayList<Personnage> liste = new ArrayList<Personnage>();
-		Perso perso = new PersonnageVide();
+	public ArrayList<Case> determinerPersonnageDansUneZoneSpherique(
+			Personnage lanceur, Position posDepart, int portee) {
+
+		int calculDeplacement = 0;
+		calculDeplacement = Math.abs(posDepart.obtenirX()
+				- this.retournerPositionPersonnageEnX(lanceur));
+		calculDeplacement += Math.abs(posDepart.obtenirY()
+				- this.retournerPositionPersonnageEnY(lanceur));
+
+		ArrayList<Case> liste = new ArrayList<Case>();
 		int modifX = 0;
 		int modifY = 0;
 		int arretX = 0;
-		
-		for(int j = -this.portee; j <= this.portee; j++){
-			int axeY = (posDepart.obtenirY() - this.portee + modifY);
-			for(int axeX = (posDepart.obtenirX() - modifX); axeX <= (posDepart.obtenirX() + this.portee  - arretX); axeX++){
-					if(axeX <= 0 || axeX >= 8 || axeY <= 0 || axeY >= 8)
-						;
-					else{
-					perso = this.partie.obtenirCarte().obtenirCarte()[axeX][axeY].estOccupe();
-					if(this.nEstPasDansLaMemeEquipe(perso))
-						liste.add((Personnage) perso);
-					}
+
+		if (this.portee + 1 >= calculDeplacement) {
+			for (int j = -portee; j <= portee; j++) {
+				int axeY = (posDepart.obtenirY() - portee + modifY);
+				for (int axeX = (posDepart.obtenirX() - modifX); axeX <= (posDepart
+						.obtenirX() + portee - arretX); axeX++) {
+					if (!(axeX < 0
+							|| axeX >= this.partie.obtenirCarte()
+									.obtenirTailleEnX() || axeY < 0 || axeY >= this.partie
+							.obtenirCarte().obtenirTailleEnY()))
+						liste.add(this.partie.obtenirCarte().obtenirCarte()[axeX][axeY]);
 					axeY++;
 				}
-				int parite = j%2;
-				if(parite == 0){
+				int parite = j % 2;
+				if (parite == 0) {
 					modifY++;
 					arretX++;
-				}
-				else{
+				} else {
 					modifX++;
 				}
 			}
+		}
 		return liste;
 	}
-	
-	public boolean nEstPasDansLaMemeEquipe(Perso perso){
-		if(this.type == TypeAttaque.OFFENSIVE)
-		return (perso instanceof Personnage
-		&& !(((Personnage) perso)
-				.obtenirNumeroDAppartenanceJoueur() == this.partie
-				.obtenirNumJoueur()));
-		else
-			return (perso instanceof Personnage
-					&& (((Personnage) perso)
-							.obtenirNumeroDAppartenanceJoueur() == this.partie
-							.obtenirNumJoueur()));
+
+	public ArrayList<Case> determinerPersonnageDansUnCone(Direction direction,
+			Personnage lanceur) {
+
+		ArrayList<Case> liste = new ArrayList<Case>();
+		int depart, arrivee;
+
+		switch (direction) {
+
+		case HAUT: {
+			depart = this.retournerPositionPersonnageEnY(lanceur);
+			arrivee = this.retournerPositionPersonnageEnY(lanceur);
+			int x = this.retournerPositionPersonnageEnX(lanceur) - 1;
+
+			for (int nombreCaseParcouru = 1; nombreCaseParcouru < (this.portee + 1); nombreCaseParcouru++) {
+				for (int yDep = depart; yDep <= arrivee; yDep++) {
+					if (x >= 0 && yDep >= 0 && yDep < this.partie.obtenirCarte().obtenirTailleEnY())
+						liste.add(this.partie.obtenirCarte().obtenirCarte()[x][yDep]);
+				}
+				depart--;
+				arrivee++;
+				x--;
+			}
+			return liste;
+		}
+		case BAS: {
+			depart = this.retournerPositionPersonnageEnY(lanceur);
+			arrivee = this.retournerPositionPersonnageEnY(lanceur);
+			int x = this.retournerPositionPersonnageEnX(lanceur) + 1;
+
+			for (int nombreCaseParcouru = 1; nombreCaseParcouru < (this.portee + 1); nombreCaseParcouru++) {
+				for (int yDep = depart; yDep <= arrivee; yDep++) {
+					if (x < this.partie.obtenirCarte().obtenirTailleEnX() && yDep >= 0 && yDep < this.partie.obtenirCarte().obtenirTailleEnY())
+						liste.add(this.partie.obtenirCarte().obtenirCarte()[x][yDep]);
+				}
+				depart--;
+				arrivee++;
+				x++;
+			}
+			return liste;
+		}
+		case DROITE: {
+			depart = this.retournerPositionPersonnageEnX(lanceur);
+			arrivee = this.retournerPositionPersonnageEnX(lanceur);
+			int y = this.retournerPositionPersonnageEnY(lanceur) + 1;
+
+			for (int nombreCaseParcouru = 1; nombreCaseParcouru < (this.portee + 1); nombreCaseParcouru++) {
+				for (int xDep = depart; xDep <= arrivee; xDep++) {
+					if (y < this.partie.obtenirCarte().obtenirTailleEnY() && xDep >= 0 && xDep < this.partie.obtenirCarte().obtenirTailleEnX())
+						liste.add(this.partie.obtenirCarte().obtenirCarte()[xDep][y]);
+				}
+				depart--;
+				arrivee++;
+				y++;
+			}
+			return liste;
+		}
+		case GAUCHE: {
+			depart = this.retournerPositionPersonnageEnX(lanceur);
+			arrivee = this.retournerPositionPersonnageEnX(lanceur);
+			int y = this.retournerPositionPersonnageEnY(lanceur) - 1;
+
+			for (int nombreCaseParcouru = 1; nombreCaseParcouru < (this.portee + 1); nombreCaseParcouru++) {
+				for (int xDep = depart; xDep <= arrivee; xDep++) {
+					if (y >= 0 && xDep >= 0 && xDep < this.partie.obtenirCarte().obtenirTailleEnX())
+						liste.add(this.partie.obtenirCarte().obtenirCarte()[xDep][y]);
+				}
+				depart--;
+				arrivee++;
+				y--;
+			}
+			return liste;
+		}
+		default:
+			return liste;
+		}
+
 	}
-	
+
+	public ArrayList<Personnage> obtenirPersonnageDansLaZoneTrouvee(
+			ArrayList<Case> cases) {
+
+		ArrayList<Personnage> persos = new ArrayList<Personnage>();
+		for (Case laCase : cases) {
+			if (laCase.estOccupe() instanceof Personnage
+					&& this.nEstPasDansLaMemeEquipe(laCase.estOccupe()))
+				persos.add((Personnage) laCase.estOccupe());
+		}
+
+		return persos;
+	}
+
+	public boolean nEstPasDansLaMemeEquipe(Perso perso) {
+		if (this.type == TypeAttaque.OFFENSIVE)
+			return (perso instanceof Personnage && !(((Personnage) perso)
+					.obtenirNumeroDAppartenanceJoueur() == this.partie
+					.obtenirNumJoueur()));
+		else
+			return (perso instanceof Personnage && (((Personnage) perso)
+					.obtenirNumeroDAppartenanceJoueur() == this.partie
+					.obtenirNumJoueur()));
+	}
+
 	public int retournerPositionPersonnageEnX(Personnage perso) {
 		return this.partie.obtenirCarte().obtenirPositionPersonnage(perso)
 				.obtenirX();

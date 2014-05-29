@@ -7,8 +7,10 @@ import javax.swing.ImageIcon;
 
 import fr.projetS2_2013_2014_groupe3.competences.BouleDeFeu;
 import fr.projetS2_2013_2014_groupe3.competences.Competence;
+import fr.projetS2_2013_2014_groupe3.competences.Embrasement;
 import fr.projetS2_2013_2014_groupe3.competences.Explosion;
 import fr.projetS2_2013_2014_groupe3.competences.Laser;
+import fr.projetS2_2013_2014_groupe3.competences.PluieGuerisseuse;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 
@@ -49,12 +51,10 @@ public class PersonnageMenu {
 		
 		Competence[] compe = new Competence[Personnage.NOMBRE_DE_COMPETENCES_PAR_DEFAUT];
 		
-		for(int j =0; j < Personnage.NOMBRE_DE_COMPETENCES_PAR_DEFAUT - 2; j++){
-			compe[j] = new BouleDeFeu(partie);
-		}
-		
+		compe[0] = new BouleDeFeu(partie);
+		compe[1] = new Embrasement(partie);
 		compe[2] = new Laser(partie);
-		compe[3] = new Explosion(partie);
+		compe[3] = new PluieGuerisseuse(partie);
 		
 			persos.add(new PersonnageMenu(new Personnage("Riven",100,100,30,3,compe,numeroJoueur), new ImageIcon("img/Perso/Riven.jpg")));
 			persos.add(new PersonnageMenu(new Personnage("Kennen",100,100,30,3,compe, numeroJoueur), new ImageIcon("img/Perso/Kennen.png")));

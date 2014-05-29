@@ -1,4 +1,8 @@
-package fr.projetS2_2013_2014_groupe3.jeu;
+package fr.projetS2_2013_2014_groupe3.objets;
+
+import fr.projetS2_2013_2014_groupe3.jeu.Objet;
+import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
+import fr.projetS2_2013_2014_groupe3.jeu.TypeObjet;
 
 
 public class PotionDeSoin extends Objet {
@@ -11,6 +15,7 @@ public class PotionDeSoin extends Objet {
 	}
 	
 	public String utiliserObjet(Personnage perso){
+		perso.rajouterVie(this.quantiteSoin);
 		return "";
 	}
 	

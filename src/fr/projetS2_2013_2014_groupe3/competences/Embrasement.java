@@ -4,28 +4,24 @@ import java.util.ArrayList;
 
 import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
-import fr.projetS2_2013_2014_groupe3.jeu.Perso;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
 
-public class BouleDeFeu extends Competence {
-
-	public BouleDeFeu() {
-		super(new Partie(), "Boule de feu", 20, 3, TypeAttaque.OFFENSIVE);
-	}
-
-	public BouleDeFeu(Partie partie) {
-		super(partie, "Boule de feu", 20, 3, TypeAttaque.OFFENSIVE);
+public class Embrasement extends Competence {
+	
+	
+	public Embrasement(Partie partie){
+		super(partie, "Embrasement", 15, 3, TypeAttaque.OFFENSIVE);
 	}
 
 	@Override
 	public boolean utiliserCompetence(Personnage lanceur, Position cible) {
-
+		
 		Direction directionCompetence = this.determinerDirectionCible(lanceur,
 				cible);
 		ArrayList<Personnage> laCible = this
 				.obtenirPersonnageDansLaZoneTrouvee(this
-						.determinerPremiereCibleSurPassage(directionCompetence,
+						.determinerPersonnageDansUnCone(directionCompetence,
 								lanceur));
 
 		if (!(laCible.size() == 0)) {
@@ -40,7 +36,10 @@ public class BouleDeFeu extends Competence {
 	@Override
 	public ArrayList<Case> retournerZoneAffecterParAttaque(Personnage lanceur,
 			Position cible) {
-		return this.determinerPremiereCibleSurPassage(
-				this.determinerDirectionCible(lanceur, cible), lanceur);
+		return this
+				.determinerPersonnageDansUnCone(this.determinerDirectionCible(lanceur,
+						cible),
+						lanceur);
 	}
+
 }
