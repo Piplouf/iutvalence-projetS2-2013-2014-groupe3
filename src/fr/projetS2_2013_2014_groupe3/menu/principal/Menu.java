@@ -2,26 +2,20 @@ package fr.projetS2_2013_2014_groupe3.menu.principal;
 
 
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
 import fr.projetS2_2013_2014_groupe3.menu.personnage.MenuPersonnage;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/** Menu principal du jeu il contient deux boutons*/
+@SuppressWarnings("serial")
 public class Menu extends JPanel implements ActionListener {
 	
 	private JPanel menu;
@@ -29,8 +23,6 @@ public class Menu extends JPanel implements ActionListener {
 	private Fenetre fenetre;
 	
 	private JButton jouer;
-	
-	private JButton option;
 	
 	private JButton quitter;
 	
@@ -49,8 +41,6 @@ public class Menu extends JPanel implements ActionListener {
         
     this.jouer = new JButton("Jouer");
     this.jouer.setPreferredSize(new Dimension(200,50));
-    this.option = new JButton("Options");
-    this.option.setPreferredSize(new Dimension(200,50));
     this.quitter = new JButton("Quitter");
     this.quitter.setPreferredSize(new Dimension(200,50));
     
@@ -58,7 +48,6 @@ public class Menu extends JPanel implements ActionListener {
       
     conteneur4.add(vide);
     conteneur1.add(jouer);
-    conteneur2.add(option);
     conteneur3.add(quitter);
 
     
@@ -72,16 +61,8 @@ public class Menu extends JPanel implements ActionListener {
     this.setVisible(true);
     
     this.jouer.addActionListener(this);
-    this.option.addActionListener(this);
     this.quitter.addActionListener(this);
    
-  }
-  
-  public void changerMenuEnMenuOption(){
-	this.menu.removeAll();
-  	this.menu.add(new MenuOption(this.fenetre));
-  	this.menu.repaint();
-  	this.fenetre.modifierPanneau(this.menu);
   }
   
   public Fenetre obtenirFenetre(){
@@ -92,6 +73,7 @@ public class Menu extends JPanel implements ActionListener {
 	  return this.menu;
   }
   
+  /** Si le joueur veut jouer il lance alors le menu personnage sinon il quitte le jeu*/
   public void actionPerformed(ActionEvent event){
 	  
 	  JComponent source = (JComponent) event.getSource();
@@ -100,12 +82,6 @@ public class Menu extends JPanel implements ActionListener {
 		{
 			this.fenetre.modifierPanneau(
 					new MenuPersonnage(this.fenetre, this.fenetre.obtenirPartie(), 0));
-			return;
-		}
-
-		if (source == this.option)
-		{
-			changerMenuEnMenuOption();
 			return;
 		}
 

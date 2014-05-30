@@ -12,6 +12,7 @@ import fr.projetS2_2013_2014_groupe3.menu.personnage.PersonnageMenu;
 
 
 @SuppressWarnings("serial")
+/** Bouton contenant les persos existant*/
 public class BoutonSacPerso extends JButton implements ActionListener{
 	
 	private MenuSac ecran;
@@ -32,6 +33,7 @@ public class BoutonSacPerso extends JButton implements ActionListener{
 		InitGUI();
 	}
 
+	/** Initialise la partie graphique*/
 	private void InitGUI() {
 		this.setPreferredSize(new Dimension(120,120));
 		this.setIcon(new PersonnageMenu().rechercheImagePersonnage(this.perso, this.partie));

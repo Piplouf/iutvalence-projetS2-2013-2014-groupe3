@@ -6,14 +6,14 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
-import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
 import fr.projetS2_2013_2014_groupe3.jeuEnCours.BoutonCarteEnJeu;
 import fr.projetS2_2013_2014_groupe3.jeuEnCours.InterfacePartie;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
+/** Modélisateur de carte sur une ihm*/
+@SuppressWarnings("serial")
 public class ModelisationCarte extends JPanel {
 
 	private Partie partie;
@@ -37,7 +37,8 @@ public class ModelisationCarte extends JPanel {
 	public void refresh(){
 		refreshGUI();
 	}
-
+	
+	/** Reinitialise l'affichage de la carte*/
 	private void refreshGUI() {
 		this.removeAll();
 		JPanel conteneurFinal = new JPanel();
@@ -61,6 +62,11 @@ public class ModelisationCarte extends JPanel {
 		
 	}
 	
+	public BoutonCarteEnJeu[][] obtenirBoutons(){
+		return this.boutons;
+	}
+	
+	/** Permet d'obtenir le bouton en fonction de la position donner*/
 	public BoutonCarteEnJeu obtenirBoutonsAPosition(Position position){
 		return this.boutons[position.obtenirX()][position.obtenirY()];
 	}

@@ -6,41 +6,31 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import fr.projetS2_2013_2014_groupe3.jeu.Partie;
-import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
-
-public class BoutonDeplacer extends JButton {
-	
-	private Fenetre fen;
-	
-	private Partie partie;
+/** Bouton qui permet d'indiquer quand le joueur souhaite effectuer un deplacement*/
+@SuppressWarnings("serial")
+public class BoutonDeplacer extends JButton implements ActionListener{
 	
 	private InterfacePartie ecran;
 
-	public BoutonDeplacer(Fenetre fen, final Partie partie, final InterfacePartie ecranEnCours){
+	public BoutonDeplacer(final InterfacePartie ecranEnCours){
 		
 		super("Deplacer");
-		this.fen = fen;
-		this.partie = partie;
 		this.ecran = ecranEnCours;
 		
 		this.setPreferredSize(new Dimension(400,50));
 		this.setEnabled(false);
 		
-		this.addActionListener(new ActionListener(){
+		this.addActionListener(this);
+	}
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			if(!ecran.obtenirACliquerSurBoutonDeplacer()){
-				ecran.modifierACliquerSurBoutonDeplacer(true);
-			}
-				
-				
-				
-			}
-			
-		});
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		
+		if(!ecran.obtenirACliquerSurBoutonDeplacer()){
+			ecran.estEnModeAttaque(false);
+			ecran.modifierACliquerSurBoutonDeplacer(true);
+		}
+		
 	}
 
 }

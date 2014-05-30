@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import fr.projetS2_2013_2014_groupe3.jeuEnCours.InterfacePartie;
-import fr.projetS2_2013_2014_groupe3.menu.carte.ModelisationCarte;
+import fr.projetS2_2013_2014_groupe3.exceptions.NumeroJoueurErronne;
+import fr.projetS2_2013_2014_groupe3.exceptions.PositionErronne;
 import fr.projetS2_2013_2014_groupe3.menu.carte.MenuCarte;
 
+/** Bouton de la validation de l'equipe, on clique dessus quand on est satisfait de notre equipe*/
+@SuppressWarnings("serial")
 public class BoutonValidationEquipe extends JButton {
 
 	private MenuPersonnage ecranPerso;
@@ -39,9 +41,13 @@ public class BoutonValidationEquipe extends JButton {
 							new MenuPersonnage(ecranPerso.obtenirFenetre(),
 									ecranPerso.obtenirPartie(), 1));
 				else
-					 ecranPerso.obtenirFenetre().modifierPanneau( new
-					 MenuCarte(ecranPerso.obtenirFenetre(),
-					 ecranPerso.obtenirPartie()));
+					try {
+						ecranPerso.obtenirFenetre().modifierPanneau( new
+						 MenuCarte(ecranPerso.obtenirFenetre(),
+						 ecranPerso.obtenirPartie()));
+					} catch (PositionErronne e) {
+					} catch (NumeroJoueurErronne e) {
+					}
 			}
 
 		});

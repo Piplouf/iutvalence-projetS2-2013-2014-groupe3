@@ -7,11 +7,12 @@ import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
 
+/** Attaque touchant toutes les cibles en ligne droite infligeant 15 points de degats*/
 public class Laser extends Competence {
 
 	
 	public Laser(Partie partie){
-		super(partie,"Laser",15,5, TypeAttaque.OFFENSIVE);
+		super(partie,"Laser",100,5, TypeAttaque.OFFENSIVE,25);
 	}
 	@Override
 	public boolean utiliserCompetence(Personnage lanceur, Position cible) {

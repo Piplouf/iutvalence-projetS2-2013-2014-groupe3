@@ -1,16 +1,13 @@
 package fr.projetS2_2013_2014_groupe3.menu.personnage;
-import java.awt.Component;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 
+
+/** JPanel contenant l'equipe du joueur */
 public class EquipeDuJoueur extends JPanel {
 
 	/**
@@ -30,6 +27,7 @@ public class EquipeDuJoueur extends JPanel {
 		InitGUI();
 	}
 
+	/** Ajoute un perso a l'equipe si celle-ci n'est pas pleine*/
 	public boolean ajouterPerso(PersonnageMenu perso) {
 
 		for (int i = 0; i < 4; i++) {
@@ -50,6 +48,7 @@ public class EquipeDuJoueur extends JPanel {
 		return false;
 	}
 
+	/** Retire un personnage de l'equipe*/
 	public boolean retirerPerso(BoutonEquipe bouton) {
 
 		supprimer(bouton.obtenirPerso(), this.equipe);
@@ -58,6 +57,7 @@ public class EquipeDuJoueur extends JPanel {
 		return true;
 	}
 
+	/** Initialise l'equipe du joueur vide*/
 	public void InitGUI(){
 		
 		this.equipe = new HashSet<PersonnageMenu>();
@@ -70,6 +70,7 @@ public class EquipeDuJoueur extends JPanel {
 		this.add(persoJoueur);	
 	}
 	
+	/** Refresh l'interface des qu'on ajoute un joueur*/
 	private void refresh() {
 		
 		this.removeAll();
@@ -92,6 +93,7 @@ public class EquipeDuJoueur extends JPanel {
 		
 	}
 
+	/** Méthode retirant un joueur de l'equipe*/
 	public boolean supprimer(PersonnageMenu perso, HashSet<PersonnageMenu> equipe) {
 
 		for (Object o : equipe) {

@@ -4,7 +4,8 @@ import javax.swing.JPanel;
 
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 
-
+/** La fenetre principale du jeu, celle qui sera change a chaque fois que cela est necessaire*/
+@SuppressWarnings("serial")
 public class Fenetre extends JFrame implements Runnable{
 	
 	private Partie partie;
@@ -14,6 +15,7 @@ public class Fenetre extends JFrame implements Runnable{
 		this.partie = partie;
 	}
 	
+	/** Initialisation de la fenetre*/
 	public void initGUI(){
 		
 		this.setTitle("Kingdom Snickers");
@@ -29,11 +31,13 @@ public class Fenetre extends JFrame implements Runnable{
 		return this.partie;
 	}
 	
+	/** Permet de changer le JPanel principal de la fenetre et ainsi de passer d'un menu à un autre*/
 	public void modifierPanneau(JPanel panneau){
 		this.setContentPane(panneau);
 	    this.setVisible(true);
 	}
 	
+	/** Refresh toute la fenetre*/
 	public void refresh(){
 		this.getContentPane().validate();
 		this.setVisible(true);
@@ -41,6 +45,7 @@ public class Fenetre extends JFrame implements Runnable{
 	}
 
 	@Override
+	/** ininitialise l'interface graphique quand on appelle le thread*/
 	public void run() {
 		
 		this.initGUI();

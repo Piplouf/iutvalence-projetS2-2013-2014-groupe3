@@ -7,10 +7,11 @@ import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
 
+/** Compétence par défaut ne faisant rien */
 public class CompetenceVide extends Competence {
 
 	public CompetenceVide(Partie partie) {
-		super(partie, "Vide", 0, 0, TypeAttaque.OFFENSIVE);
+		super(partie, "Vide", 0, 0, TypeAttaque.OFFENSIVE,0);
 		// TODO Auto-generated constructor stub
 	}
 

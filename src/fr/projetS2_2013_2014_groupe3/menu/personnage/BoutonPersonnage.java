@@ -5,15 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 
-
-public class BoutonPersonnage extends JButton{
+/** Bouton du séléctionneur de personnage il s'ajoute a l'equipe quand on leurs clique dessus*/
+@SuppressWarnings("serial")
+public class BoutonPersonnage extends JButton implements ActionListener, MouseListener{
 	
 	private PersonnageMenu perso;
 	
@@ -31,47 +27,8 @@ public class BoutonPersonnage extends JButton{
 		this.setPreferredSize(new Dimension(x,y));
 		
 		
-		this.addActionListener(new ActionListener(){
-
-			public void actionPerformed(ActionEvent arg0) {
-					if(ecranPerso.ajouterJoueurEquipe(perso))
-						griser();
-				}
-			
-		});
-		
-		this.addMouseListener(new MouseListener(){
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				ecranPerso.modifierCaracteristiques(perso.obtenirPerso().toString());
-			}
-
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				ecranPerso.modifierCaracteristiques("");
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		this.addActionListener(this);
+		this.addMouseListener(this);
 		
 	}
 	
@@ -81,5 +38,42 @@ public class BoutonPersonnage extends JButton{
 	
 	public PersonnageMenu obtenirPersonnageMenu(){
 		return this.perso;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		ecranPerso.modifierCaracteristiques(perso.obtenirPerso().toString());
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		ecranPerso.modifierCaracteristiques("");
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(ecranPerso.ajouterJoueurEquipe(perso))
+			griser();
+		
 	}
 }

@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
+/** Menu joueur comportant les quatres action principales : attaquer, se deplacer, utiliser le sac et passer son tour*/
+@SuppressWarnings("serial")
 public class MenuJoueur extends JPanel {
 	
 	private Fenetre fenetre;
@@ -35,7 +37,7 @@ public class MenuJoueur extends JPanel {
 		this.add(this.ecran.obtenirBoutonAttaquer());
 		this.add(this.ecran.obtenirBoutonDeplacer());
 		this.add(new BoutonSac(fenetre, partie, ecran));
-		this.add(new BoutonPasserTour(fenetre, partie, ecran));
+		this.add(new BoutonPasserTour(partie, ecran));
 	}
 
 }

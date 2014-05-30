@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -19,11 +17,9 @@ import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.menu.carte.ModelisationCarte;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
-public class InterfacePartie extends JPanel implements KeyListener {
+/** Classe principale de l'ihm qui s'occupe de gérer la partie*/
+public class InterfacePartie extends JPanel{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3975533453012006418L;
 
 	private Fenetre fen;
@@ -58,14 +54,15 @@ public class InterfacePartie extends JPanel implements KeyListener {
 		InitGUI();
 	}
 
+	/** Initialise la partie graphique*/
 	private void InitGUI() {
 
 		this.etatPersoJoueur1 = new JLabel();
 		this.etatPersoJoueur2 = new JLabel();
 		this.nomJoueur = new JLabel();
 		this.persoSelection = new JLabel();
-		this.boutonAttaquer = new BoutonAttaquer(this.fen, this.partie, this);
-		this.boutonDeplacer = new BoutonDeplacer(this.fen, this.partie, this);
+		this.boutonAttaquer = new BoutonAttaquer(this);
+		this.boutonDeplacer = new BoutonDeplacer(this);
 
 		JPanel conteneurFinal = new JPanel();
 		JPanel grille = new JPanel();
@@ -125,7 +122,7 @@ public class InterfacePartie extends JPanel implements KeyListener {
 		boutonAttaque.add(this.boutonAttaquer);
 		boutonDepl.add(this.boutonDeplacer);
 		boutonSac.add(new BoutonSac(this.fen, this.partie, this));
-		boutonPass.add(new BoutonPasserTour(this.fen, this.partie, this));
+		boutonPass.add(new BoutonPasserTour(this.partie, this));
 
 		this.menuJoueur.add(boutonAttaque);
 		this.menuJoueur.add(boutonDepl);
@@ -149,6 +146,7 @@ public class InterfacePartie extends JPanel implements KeyListener {
 
 	}
 
+	/** Refresh l'affichage du numero du joueur */
 	public void refreshTexte(int numeroJoueur) {
 		this.nomJoueur.setText("Joueur " + Integer.toString(numeroJoueur));
 		if (this.partie.obtenirNumJoueur() == 1) {
@@ -160,6 +158,7 @@ public class InterfacePartie extends JPanel implements KeyListener {
 		}
 	}
 
+	/** Affiche sur la carte la zone qui sera affecté par la compétence courante*/
 	public void afficherZoneAffecterParCompetences(ArrayList<Case> cases) {
 
 		for (Case laCase : cases) {
@@ -167,6 +166,7 @@ public class InterfacePartie extends JPanel implements KeyListener {
 		}
 	}
 	
+	/** Retire sur la carte la zone affecté par la compétence courante*/
 	public void retirerZoneAffecterParCompetences(ArrayList<Case> cases) {
 
 		for (Case laCase : cases) {
@@ -174,6 +174,7 @@ public class InterfacePartie extends JPanel implements KeyListener {
 		}
 	}
 
+	/** Affiche l'état des deux equipes sur les deux côtés de la fenetre*/
 	public void afficherEtatPersoJoueurs() {
 		this.etatPersoJoueur1.setText("<html><center>Joueur 1</center><br><br>"
 				+ this.partie.obtenirJoueur(0).obtenirPersonnage(0).toString()
@@ -196,17 +197,20 @@ public class InterfacePartie extends JPanel implements KeyListener {
 				+ "<br><br>");
 	}
 
+	/** Change le personnage courant par celui donner en parametre*/
 	public void modifierPersonnageCourant(Personnage perso) {
 		this.personnage = perso;
 	}
 
+	/** Change le menu en bas en menu d'attaque lorsque celui ci est demande*/
 	public void modifierMenuJoueurEnMenuAttaque(Personnage perso) {
 		this.menuJoueur.removeAll();
 		this.menuJoueur
-				.add(new MenuAttaque(this.fen, this.partie, this, perso));
+				.add(new MenuAttaque(this.partie, this, perso));
 		this.revalidate();
 	}
 
+	/** Change le menu en bas en menu joueur lorsque celui ci est demande*/
 	public void modifierMenuAttaqueEnMenuJoueur() {
 
 		this.menuJoueur.removeAll();
@@ -214,10 +218,12 @@ public class InterfacePartie extends JPanel implements KeyListener {
 		this.revalidate();
 	}
 
+	/** Change le boolean qui sert a savoir si le joueur a cliquer sur le bouton déplacer*/
 	public void modifierACliquerSurBoutonDeplacer(boolean modif) {
 		this.ACliquerSurBoutonDeplacer = modif;
 	}
 
+	/** Change le booleen qui sert a savoir si le joueur a cliquer sur le bouton attaquer*/
 	public void estEnModeAttaque(boolean modif) {
 		this.estEnModeAttaque = modif;
 	}
@@ -245,6 +251,10 @@ public class InterfacePartie extends JPanel implements KeyListener {
 	public JLabel obtenirPersoSel() {
 		return this.persoSelection;
 	}
+	
+	public void modifierPersoSel(String texte){
+		this.persoSelection.setText(texte);
+	}
 
 	public BoutonAttaquer obtenirBoutonAttaquer() {
 		return this.boutonAttaquer;
@@ -270,28 +280,18 @@ public class InterfacePartie extends JPanel implements KeyListener {
 		return this.fen;
 	}
 
+	/** Refresh l'affichage d'interface partie*/
 	public void refresh() {
 		this.refreshTexte(this.partie.obtenirNumJoueur());
 		this.afficherEtatPersoJoueurs();
 		this.carteModeliser.refresh();
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if (estEnModeAttaque)
-			this.menuJoueur = new MenuJoueur(fen, partie, this);
+	/** Lorsque la partie est gagnée on affiche qui a gagné et on bloque le jeu*/
+	public void partieEstGagnee() {
+		this.persoSelection.setText("Le joueur "+this.partie.obtenirNumJoueur()+" a gagné la partie !");
+		this.menuJoueur.setEnabled(false);
+		
 	}
 
 }

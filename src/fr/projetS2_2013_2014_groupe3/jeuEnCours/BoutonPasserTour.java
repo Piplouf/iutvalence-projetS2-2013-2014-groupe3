@@ -7,36 +7,33 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
-import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
-public class BoutonPasserTour extends JButton {
-	
-	private Fenetre fen;
+/** Bouton qui indiquer si le joueur veut passer son tour*/
+@SuppressWarnings("serial")
+public class BoutonPasserTour extends JButton implements ActionListener{
 	
 	private Partie partie;
 	
 	private InterfacePartie ecran;
 
-	public BoutonPasserTour(Fenetre fen, final Partie partie, InterfacePartie ecranEnCours) {
+	public BoutonPasserTour(final Partie partie, InterfacePartie ecranEnCours) {
 		
 		super("Passer tour");
-		this.fen = fen;
 		this.partie = partie;
 		this.ecran = ecranEnCours;
 		
 		this.setPreferredSize(new Dimension(400,50));
 		
-		this.addActionListener(new ActionListener(){
+		this.addActionListener(this);
+	}
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				partie.modifierNumeroJoueur();
-				ecran.obtenirFenetre().modifierPanneau(new InterfacePartie(ecran.obtenirFenetre(),partie));
-				
-			}
-			
-		});
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		partie.modifierNumeroJoueur();
+		ecran.obtenirFenetre().modifierPanneau(new InterfacePartie(ecran.obtenirFenetre(),partie));
+		partie.redonnerEnergieATousLesPersonnages();
+		
 	}
 
 }

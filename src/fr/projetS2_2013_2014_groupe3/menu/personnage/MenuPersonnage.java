@@ -1,25 +1,18 @@
 package fr.projetS2_2013_2014_groupe3.menu.personnage;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
-
+/** Interface du menu */
+@SuppressWarnings("serial")
 public class MenuPersonnage extends JPanel{
 	
 	private Fenetre fenetre;
@@ -45,6 +38,7 @@ public class MenuPersonnage extends JPanel{
 		InitGUI();
 	}
 	
+	/** Initialise l'interface graphique*/
 	public void InitGUI(){
 		
 		JPanel fin = new JPanel();
@@ -110,6 +104,7 @@ public class MenuPersonnage extends JPanel{
 		this.add(fin);
 	}
 	
+	/** Ajouter a l'equipe un personnage*/
 	public boolean ajouterJoueurEquipe(PersonnageMenu perso){
 		return this.equipe.ajouterPerso(perso);
 	}
@@ -122,6 +117,7 @@ public class MenuPersonnage extends JPanel{
 		return this.fenetre;
 	}
 	
+	/** Enleve a l'equipe un personnage*/
 	public boolean retirerJoueurEquipe(BoutonEquipe bouton, PersonnageMenu perso){
 		this.selecteur.reactiverBouton(perso);
 		boolean ARetirer = this.equipe.retirerPerso(bouton);

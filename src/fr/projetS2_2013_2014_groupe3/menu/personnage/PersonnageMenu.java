@@ -1,6 +1,5 @@
 package fr.projetS2_2013_2014_groupe3.menu.personnage;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -8,13 +7,13 @@ import javax.swing.ImageIcon;
 import fr.projetS2_2013_2014_groupe3.competences.BouleDeFeu;
 import fr.projetS2_2013_2014_groupe3.competences.Competence;
 import fr.projetS2_2013_2014_groupe3.competences.Embrasement;
-import fr.projetS2_2013_2014_groupe3.competences.Explosion;
 import fr.projetS2_2013_2014_groupe3.competences.Laser;
 import fr.projetS2_2013_2014_groupe3.competences.PluieGuerisseuse;
+import fr.projetS2_2013_2014_groupe3.competences.Poison;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 
-
+/** Classe spécifique à l'ihm qui lie une image à un personnage*/
 public class PersonnageMenu {
 	
 	private ImageIcon image;
@@ -46,12 +45,14 @@ public class PersonnageMenu {
 		return this.image;
 	}
 	
+	/** Permet d'obtenir tous les personnages du jeu
+	 * C'est ici que sont initialisés tous les personnages du jeu*/
 	public Set<PersonnageMenu> listeHeros(Partie partie,int numeroJoueur){
 		Set<PersonnageMenu> persos = new HashSet<PersonnageMenu>();
 		
 		Competence[] compe = new Competence[Personnage.NOMBRE_DE_COMPETENCES_PAR_DEFAUT];
 		
-		compe[0] = new BouleDeFeu(partie);
+		compe[0] = new Poison(partie);
 		compe[1] = new Embrasement(partie);
 		compe[2] = new Laser(partie);
 		compe[3] = new PluieGuerisseuse(partie);
@@ -70,11 +71,13 @@ public class PersonnageMenu {
 		return persos;
 	}
 
+	/** Permet de changer le personnage */
 	public void modifierPerso(Personnage personnage) {
 		this.perso = personnage;
 		
 	}
 	
+	/** Donne l'image associée au personnage*/
 	public ImageIcon rechercheImagePersonnage(Personnage personnage, Partie partie){
 		
 		ImageIcon image = new ImageIcon();

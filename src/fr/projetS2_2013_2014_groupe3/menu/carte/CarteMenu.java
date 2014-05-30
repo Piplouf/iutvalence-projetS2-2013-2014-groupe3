@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 
 import fr.projetS2_2013_2014_groupe3.jeu.Carte;
 
-
+/** Classe propre à l'ihm comportant l'image associé à la carte qu'elle represente*/
 public class CarteMenu {
 	
 	private Carte carte;

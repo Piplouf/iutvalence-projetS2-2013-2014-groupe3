@@ -1,5 +1,8 @@
 package fr.projetS2_2013_2014_groupe3.jeu;
 
+import fr.projetS2_2013_2014_groupe3.exceptions.NumeroJoueurErronne;
+import fr.projetS2_2013_2014_groupe3.exceptions.PositionErronne;
+
 
 public class Case {
 	
@@ -11,49 +14,63 @@ public class Case {
 	
 	private Position position;
 
-	public Case(Position position){
+	public Case(Position position) throws PositionErronne{
 		this.estOccupe = new PersonnageVide();
 		this.estPleine = false;
 		this.numeroJoueur = 0;
-		this.position = position;
+		if(position.obtenirX() < 0 || position.obtenirY() < 0)
+			throw new PositionErronne();
+		else
+			this.position = position;
 	}
 	
-	public Case(Personnage perso, int num, Position position){
+	public Case(Personnage perso, int num, Position position) throws PositionErronne, NumeroJoueurErronne{
 		this.estOccupe = perso;
 		this.estPleine = false;
-		this.position = position;
-		this.numeroJoueur = num;
+		if(position.obtenirX() < 0 || position.obtenirY() < 0)
+			throw new PositionErronne();
+		else
+			this.position = position;
+		if(num != 1 && num != 2)
+			throw new NumeroJoueurErronne();
+		else
+			this.numeroJoueur = num;
 	}
 	
-	public Case(boolean estPleine, Position position){
+	public Case(boolean estPleine, Position position) throws PositionErronne{
 		this.estOccupe = new PersonnageVide();
 		this.estPleine = estPleine;
-		this.position = position;
+		if(position.obtenirX() < 0 || position.obtenirY() < 0)
+			throw new PositionErronne();
+		else
+			this.position = position;
 		this.numeroJoueur = 0;
+	}
+	
+
+	/** Permet de retirer un personnage d'une case*/
+	public void enleverPersonnage(){
+		this.modifierEstOccupe(new PersonnageVide());
+		this.numeroJoueur = 0;
+	}
+	
+	/** Permet d'ajouter un personnage sur une case */
+	public void ajouterPersonnage(Personnage perso, int numeroJoueur){
+		this.modifierEstOccupe(perso);
+		this.numeroJoueur = numeroJoueur;
 	}
 	
 	/**
 	 * Renvoi true si la case est pleine
 	 * et false si elle ne l'est pas
 	 */
-	
-	public void enleverPersonnage(){
-		this.modifierEstOccupe(new PersonnageVide());
-		this.numeroJoueur = 0;
-	}
-	
-	public void ajouterPersonnage(Personnage perso, int numeroJoueur){
-		this.modifierEstOccupe(perso);
-		this.numeroJoueur = numeroJoueur;
-	}
-	
 	public boolean estPleine(){
 		return this.estPleine;
 	}
 	
 	/**
-	 * Renvoi true si la case est occupe par un personnage
-	 * et false si elle n'est pas occupe
+	 * Renvoi le personnage si la case est occupe par un personnage
+	 * et le personnage vide si elle n'est pas occupe
 	 * @return
 	 */
 	public Perso estOccupe(){

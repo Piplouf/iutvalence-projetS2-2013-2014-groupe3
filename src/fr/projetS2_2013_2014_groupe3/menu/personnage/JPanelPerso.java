@@ -4,7 +4,8 @@ import java.util.HashSet;
 
 import javax.swing.JPanel;
 
-
+/** Classe héritant d'une JPanel contenant une méthode que j'ai rajouté*/
+@SuppressWarnings("serial")
 public class JPanelPerso extends JPanel{
 	
 	
@@ -12,6 +13,7 @@ public class JPanelPerso extends JPanel{
 		super();
 	}
 	
+	/** Ne renvoi que les boutons personnages contenu dans un JPanel */
 	public BoutonPersonnage[] obtenirComposantsBoutons(){
 		
 		HashSet<BoutonPersonnage> liste = new HashSet<BoutonPersonnage>();

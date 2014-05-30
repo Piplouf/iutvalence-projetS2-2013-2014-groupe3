@@ -5,8 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-
-public class BoutonCarte extends JButton{
+/** Bouton qui comporte les cartes*/
+@SuppressWarnings("serial")
+public class BoutonCarte extends JButton implements ActionListener{
 	
 	private MenuCarte ecran;
 	
@@ -19,7 +20,7 @@ public class BoutonCarte extends JButton{
 		this.setPreferredSize(new Dimension(120,120));
 		this.ecran = ecranCourant;
 		this.carte = new CarteMenu();
-		this.carteCourante = new CarteMenu();
+		BoutonCarte.carteCourante = new CarteMenu();
 		this.setEnabled(false);
 		
 	}
@@ -29,7 +30,7 @@ public class BoutonCarte extends JButton{
 		
 		this.ecran = ecranCourant;
 		this.carte = laCarte;
-		this.carteCourante = new CarteMenu();
+		BoutonCarte.carteCourante = new CarteMenu();
 		InitGUI();
 		
 	}
@@ -38,27 +39,14 @@ public class BoutonCarte extends JButton{
 		
 		this.setPreferredSize(new Dimension(120,120));
 		this.setText(this.carte.obtenirNom());
-		this.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			
-				if(carteCourante.obtenirNom() != carte.obtenirNom()){
-					carteCourante = carte;
-					ecran.obtenirBoutonCarte().setEnabled(true);
-					ecran.obtenirBoutonValidation().setEnabled(true);
-				}
-			changerBoutonCarteCourante();
-				
-			}
-			
-		});
+		this.addActionListener(this);
 	}
 	
+	/** Change la carte courante choisi par le joueur*/
 	public void changerBoutonCarteCourante(){
 		ecran.obtenirBoutonCarte().modifierCarte(carteCourante);
 		ecran.obtenirBoutonCarte().setIcon(ecran.obtenirBoutonCarte().obtenirCarteMenuCourante().obtenirImage());
-		ecran.obtenirBoutonCarte().setText(this.carteCourante.obtenirNom());
+		ecran.obtenirBoutonCarte().setText(BoutonCarte.carteCourante.obtenirNom());
 	}
 	
 	public void modifierCarte(CarteMenu carte){
@@ -66,7 +54,20 @@ public class BoutonCarte extends JButton{
 	}
 	
 	public CarteMenu obtenirCarteMenuCourante(){
-		return this.carteCourante;
+		return BoutonCarte.carteCourante;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(carteCourante.obtenirNom() != carte.obtenirNom()){
+			carteCourante = carte;
+			ecran.obtenirBoutonCarte().setEnabled(true);
+			ecran.obtenirBoutonValidation().setEnabled(true);
+		}
+	changerBoutonCarteCourante();
+		
+		
 	}
 
 	

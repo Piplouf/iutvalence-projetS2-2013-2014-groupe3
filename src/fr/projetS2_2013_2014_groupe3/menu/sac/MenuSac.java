@@ -5,11 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -18,19 +15,15 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-
-import fr.projetS2_2013_2014_groupe3.jeu.Joueur;
 import fr.projetS2_2013_2014_groupe3.jeu.Objet;
 import fr.projetS2_2013_2014_groupe3.jeu.ObjetVide;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeuEnCours.InterfacePartie;
-import fr.projetS2_2013_2014_groupe3.menu.personnage.JPanelPerso;
-import fr.projetS2_2013_2014_groupe3.menu.personnage.MenuPersonnage;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
-public class MenuSac extends JPanel implements KeyListener, ActionListener{
+/** Interface graphique du menu sac*/
+public class MenuSac extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -62,6 +55,7 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 		InitGUI();
 	}
 
+	/** Initialise la partie graphique */
 	public void InitGUI() {
 		
 		
@@ -160,7 +154,7 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 			ArrayList<Objet> liste = iterateurDeCollectionsDObjets.next();
 			Objet objetEnCours = liste.get(0);
 				
-			this.conteneurBoutons.add(new JPanel().add(new BoutonSacObjet(this.fen,
+			this.conteneurBoutons.add(new JPanel().add(new BoutonSacObjet(
 					this.partie,this,objetEnCours)));
 		}
 		
@@ -191,9 +185,9 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 			
 		this.add(conteneurFinal);
 		
-		this.addKeyListener(this);
 	}
 	
+	/** Reinitialise l'interface quand cela est necessaire*/
 	public void refresh(){
 		
 	for(BoutonSacObjet bouton : this.conteneurBoutons.obtenirComposantsBoutonsSacOjet())
@@ -202,6 +196,7 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 	this.afficherEtatPersoJoueurs();
 	}
 	
+	/** Permet d'affiche au joueur l'objet courant séléctionner*/
 	public void afficherObjetCourantSelectionner(){
 		if(this.obtenirObjetCourant().getNom() != "Vide")
 			this.espaceEntreHautEtBas.setText(this.obtenirObjetCourant().getNom());
@@ -209,6 +204,7 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 			this.espaceEntreHautEtBas.setText("Aucun objet sélectionner");
 	}
 
+	/** Rend inactif les boutons personnage sur lesquels l'objet ne devrait pas etre applicable */
 	public void griserLesPersonnagesSurLesquelsLObjetNEstPasApplicable(int numero){
 		
 		for(BoutonSacPerso perso : this.conteneurPersosJoueur1.obtenirComposantsBoutons()){
@@ -222,6 +218,8 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 		}
 	}
 	
+	
+	/** Rend a nouveau actif tous les boutons personnages*/
 	public void degriserTousLesPersos(){
 		
 		for(BoutonSacPerso perso : this.conteneurPersosJoueur1.obtenirComposantsBoutons())
@@ -230,6 +228,7 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 			perso.setEnabled(true);
 	}
 	
+	/** Permet de retirer un bouton auquel ne serait plus associé d'objet*/
 	public void enleverBouton(BoutonSacObjet bouton){
 		this.conteneurBoutons.remove(bouton);
 		this.conteneurBoutons.revalidate();
@@ -243,6 +242,7 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 		MenuSac.objetCourant = objet;
 	}
 	
+	/** Affiche l'état des joueurs pour voir les effets de l'objet sur eux*/
 	public void afficherEtatPersoJoueurs() {
 		this.etatPersoJoueur1.setText("<html><center>Joueur 1</center><br><br>"
 				+ this.partie.obtenirJoueur(0).obtenirPersonnage(0).toString()
@@ -264,25 +264,6 @@ public class MenuSac extends JPanel implements KeyListener, ActionListener{
 				+ "<br><br>"
 				+ this.partie.obtenirJoueur(1).obtenirPersonnage(3).toString()
 				+ "<br><br>");
-	}
-
-	@Override
-	public void keyPressed(KeyEvent event) {
-		
-		 int source = event.getKeyCode();
-		 if(source == KeyEvent.VK_SHIFT || source == KeyEvent.VK_ENTER)
-			 this.fen.modifierPanneau(new InterfacePartie(this.fen, this.partie));
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent event) {
-		
 	}
 
 	@Override

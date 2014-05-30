@@ -1,6 +1,6 @@
 package fr.projetS2_2013_2014_groupe3.jeu;
 
-
+/** Position à deux dimensions */
 public class Position {
 
 		private int x;
@@ -40,6 +40,7 @@ public class Position {
 			return this;
 		}
 		
+		/** Répresentation textuelle de la position */
 		public String toString(){
 			return "<html>X : "+this.obtenirX()+"<br>Y : "+this.obtenirY();
 		}

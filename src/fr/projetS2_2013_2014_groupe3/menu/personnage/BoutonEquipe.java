@@ -9,8 +9,10 @@ import javax.swing.JButton;
 
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 
-
-public class BoutonEquipe extends JButton{
+/** Bouton correspondant aux personnages de l'equipe du joueur, quand on clique dessus on enleve le personnage
+ * associée à ce bouton de l'equipe*/
+@SuppressWarnings("serial")
+public class BoutonEquipe extends JButton implements ActionListener, MouseListener{
 
 	private MenuPersonnage ecranPerso;
 	
@@ -27,49 +29,9 @@ public class BoutonEquipe extends JButton{
 		else
 			this.setIcon(this.perso.obtenirImage());
 		
-		this.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ecranPerso.retirerJoueurEquipe(retournerBouton(),obtenirPerso());
-			}
-
-		});
+		this.addActionListener(this);
 		
-		this.addMouseListener(new MouseListener(){
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				if(retournerBouton().isEnabled())
-					ecranPerso.modifierCaracteristiques(perso.obtenirPerso().toString());
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-					ecranPerso.modifierCaracteristiques("");
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		this.addMouseListener(this);
 	}
 	
 	public BoutonEquipe retournerBouton(){
@@ -82,5 +44,42 @@ public class BoutonEquipe extends JButton{
 	
 	public void modifierPerso(Personnage personnage){
 		this.perso.modifierPerso(personnage);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		if(retournerBouton().isEnabled())
+			ecranPerso.modifierCaracteristiques(perso.obtenirPerso().toString());
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		ecranPerso.modifierCaracteristiques("");
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		ecranPerso.retirerJoueurEquipe(retournerBouton(),obtenirPerso());
+		
 	}
 }

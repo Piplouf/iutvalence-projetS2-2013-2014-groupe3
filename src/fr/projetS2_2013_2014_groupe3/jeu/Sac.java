@@ -78,9 +78,10 @@ public class Sac{
 		
 	}
 	
+	/** Permet d'obtenir le numero de la collection dans le sac */
 	public int obtenirIndexCollectionObjet(Objet objet){
 		
-int indexObjetExistant = 0;
+		int indexObjetExistant = 0;
 		
 		/*
 		 * Si la pile est vide j'envoi 0
@@ -132,6 +133,7 @@ int indexObjetExistant = 0;
 		}
 	}	
 	
+	/** Permet d'utiliser un objet sur un personnage*/
 	public String utiliserObjet(Objet objet, Personnage personnage){
 	String utilisation;	
 	if(this.verificationObjetExiste(objet)){	
@@ -153,6 +155,8 @@ int indexObjetExistant = 0;
 		return true;
 	}
 	
+	
+	/** Retire l'objet du sac*/
 	private void retirerObjets(Objet objet){
 		int indice = this.obtenirIndexCollectionObjet(objet);
 		if(this.lotObjets.get(indice).size() == 1){
@@ -164,6 +168,7 @@ int indexObjetExistant = 0;
 			
 	}
 	
+	/** Permet d'obtenir le contenu du sac en version console */
 	public String afficherContenuSac(){
 		int compteur,j;
 		String contenu = "Contenu du sac \n"

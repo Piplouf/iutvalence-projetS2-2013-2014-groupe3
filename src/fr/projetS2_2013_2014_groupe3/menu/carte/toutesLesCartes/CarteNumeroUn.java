@@ -1,17 +1,16 @@
 package fr.projetS2_2013_2014_groupe3.menu.carte.toutesLesCartes;
 
-import javax.swing.JPanel;
-
+import fr.projetS2_2013_2014_groupe3.exceptions.NumeroJoueurErronne;
+import fr.projetS2_2013_2014_groupe3.exceptions.PositionErronne;
 import fr.projetS2_2013_2014_groupe3.jeu.Carte;
 import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
-import fr.projetS2_2013_2014_groupe3.jeuEnCours.BoutonCarteEnJeu;
 
 public class CarteNumeroUn extends Carte {
 
-	public CarteNumeroUn(Partie partie) {
+	public CarteNumeroUn(Partie partie) throws PositionErronne, NumeroJoueurErronne {
 	
 		this.modifierCarte(new Case[TAILLE_X_DEFAUT][TAILLE_Y_DEFAUT]);
 		

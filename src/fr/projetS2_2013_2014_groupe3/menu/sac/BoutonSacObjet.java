@@ -10,11 +10,10 @@ import fr.projetS2_2013_2014_groupe3.jeu.Objet;
 import fr.projetS2_2013_2014_groupe3.jeu.ObjetVide;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.TypeObjet;
-import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
+/** Bouton qui contient un objet et qui si on clique dessus le met en objet courant*/
+@SuppressWarnings("serial")
 public class BoutonSacObjet extends JButton implements ActionListener {
-
-	private Fenetre fen;
 
 	private Partie partie;
 
@@ -24,10 +23,9 @@ public class BoutonSacObjet extends JButton implements ActionListener {
 
 	private int nombreObjet;
 
-	public BoutonSacObjet(Fenetre fen, Partie partie, MenuSac menuSac,
+	public BoutonSacObjet(Partie partie, MenuSac menuSac,
 			Objet objet) {
 
-		this.fen = fen;
 		this.partie = partie;
 		this.ecran = menuSac;
 		this.objet = objet;
@@ -38,6 +36,7 @@ public class BoutonSacObjet extends JButton implements ActionListener {
 
 	}
 
+	/** Initialise l'interface graphique */
 	private void InitGUI() {
 
 		this.setPreferredSize(new Dimension(375, 80));
@@ -45,6 +44,7 @@ public class BoutonSacObjet extends JButton implements ActionListener {
 				+ Integer.toString(this.nombreObjet));
 	}
 
+	/** Reinitialise l'interface graphique */
 	public void refresh() {
 		
 		if(this.nombreObjet == 1){
@@ -61,12 +61,15 @@ public class BoutonSacObjet extends JButton implements ActionListener {
 		}
 	}
 	
+	
+	/** Permet d'obtenir le nombre d'objet d'un type restant dans le sac*/
 	public void obtenirNombreDObjetDansLaPile(){
 		this.nombreObjet = this.partie.obtenirJoueurCourant().obtenirSac().lotObjets
 				.get(this.partie.obtenirJoueurCourant().obtenirSac()
 						.obtenirIndexCollectionObjet(this.objet)).size();
 	}
 
+	/** Permet d'utiliser l'objet courant*/
 	private void utiliserObjet() {
 
 		if (this.objet.getTypeObjet() == TypeObjet.DEFENSIF)

@@ -1,16 +1,18 @@
 package fr.projetS2_2013_2014_groupe3.competences;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import fr.projetS2_2013_2014_groupe3.jeu.Case;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Perso;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.PersonnageVide;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
-import fr.projetS2_2013_2014_groupe3.jeuEnCours.BoutonCarteEnJeu;
 
+/**
+ * Classe abstraite contenant toutes les méthodes nécessaire 
+ * pour le développement d'autres compétences
+ *
+ */
 public abstract class Competence {
 
 	private String nom;
@@ -22,19 +24,25 @@ public abstract class Competence {
 	private int portee;
 
 	private TypeAttaque type;
+	
+	private int coutEnergie;
 
+	/** Le super constructeur de toutes les autres classes */
 	public Competence(Partie partie, String nom, int puissance, int portee,
-			TypeAttaque type) {
+			TypeAttaque type, int cout) {
 		this.partie = partie;
 		this.nom = nom;
 		this.puissance = puissance;
 		this.portee = portee;
 		this.type = type;
+		this.coutEnergie = cout;
 	}
 
+	/** Méthode abstraite appellé lorsqu'on utiliser une compétence */
 	public abstract boolean utiliserCompetence(Personnage lanceur,
 			Position cible);
 
+	/** Méthode abstraite utilisée pour obtenir la zone que l'attaque affectera*/
 	public abstract ArrayList<Case> retournerZoneAffecterParAttaque(
 			Personnage lanceur, Position cible);
 
@@ -57,7 +65,12 @@ public abstract class Competence {
 	public Partie obtenirPartie() {
 		return this.partie;
 	}
+	
+	public int obtenirCout(){
+		return this.coutEnergie;
+	}
 
+	/** Permet de détermine la direction de la cible par rapport au lanceur*/
 	public Direction determinerDirectionCible(Personnage lanceur, Position cible) {
 
 		Position posPersonnage = this.partie.obtenirCarte()
@@ -83,6 +96,7 @@ public abstract class Competence {
 		return Direction.NULLE;
 	}
 
+	/** Determine la premiere cible sur une ligne droite dans la direction donné*/
 	public ArrayList<Case> determinerPremiereCibleSurPassage(
 			Direction directionCompetence, Personnage lanceur) {
 
@@ -177,13 +191,12 @@ public abstract class Competence {
 		}
 	}
 
+	/** Determine toutes les cases dans une ligne droite dans une direction donné */
 	public ArrayList<Case> determinerPersonnageDansUneLigneDroite(
 			Direction direction, Personnage lanceur) {
 
 		ArrayList<Case> liste = new ArrayList<Case>();
 		int nombreCaseParcouru = 1;
-
-		Perso perso = new PersonnageVide();
 
 		switch (direction) {
 
@@ -238,6 +251,7 @@ public abstract class Competence {
 		}
 	}
 
+	/** Determine toutes les cases autour de la position cible dans un cercle de la portée indiquer*/
 	public ArrayList<Case> determinerPersonnageDansUneZoneSpherique(
 			Personnage lanceur, Position posDepart, int portee) {
 
@@ -276,6 +290,7 @@ public abstract class Competence {
 		return liste;
 	}
 
+	/** Détermine les cases qui forme un cone de la portée indiquer et dans la direction indiquer*/
 	public ArrayList<Case> determinerPersonnageDansUnCone(Direction direction,
 			Personnage lanceur) {
 
@@ -354,6 +369,7 @@ public abstract class Competence {
 
 	}
 
+	/** Renvoi tous les personnages trouvés dans la zone passer en parametre */
 	public ArrayList<Personnage> obtenirPersonnageDansLaZoneTrouvee(
 			ArrayList<Case> cases) {
 
@@ -367,6 +383,11 @@ public abstract class Competence {
 		return persos;
 	}
 
+	/** Vérifie si l'attaque est de type offensive que les persos ne sont pas dans la meme equipe
+	 * sinon s'ils sont dans la meme equipe
+	 * @param perso
+	 * @return
+	 */
 	public boolean nEstPasDansLaMemeEquipe(Perso perso) {
 		if (this.type == TypeAttaque.OFFENSIVE)
 			return (perso instanceof Personnage && !(((Personnage) perso)

@@ -6,8 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import fr.projetS2_2013_2014_groupe3.jeuEnCours.InterfacePartie;
-import fr.projetS2_2013_2014_groupe3.menu.carte.toutesLesCartes.CarteNumeroUn;
 
+/** Bouton utiliser par le joueur lorsque ceux-ci ont choisi une carte */
+@SuppressWarnings("serial")
 public class BoutonValidationCarte extends JButton implements ActionListener{
 
 	private MenuCarte ecranPerso;

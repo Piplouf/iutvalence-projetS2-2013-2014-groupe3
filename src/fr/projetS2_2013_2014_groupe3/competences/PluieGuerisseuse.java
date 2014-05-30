@@ -7,11 +7,12 @@ import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.jeu.Personnage;
 import fr.projetS2_2013_2014_groupe3.jeu.Position;
 
+/** Sort de soin de zone rendant 20 points de vie */
 public class PluieGuerisseuse extends Competence {
 
 	public PluieGuerisseuse(Partie partie) {
 
-		super(partie, "Pluie guérisseuse", 20, 3, TypeAttaque.DEFENSIVE);
+		super(partie, "Pluie guérisseuse", 20, 3, TypeAttaque.DEFENSIVE,50);
 	}
 
 	@Override

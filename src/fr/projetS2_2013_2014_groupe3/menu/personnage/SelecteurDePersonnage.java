@@ -1,16 +1,10 @@
 package fr.projetS2_2013_2014_groupe3.menu.personnage;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.GridLayout;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Set;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-
+/** Contient tous les personnages que nous voulons montrer au joueur et donc ceux qu'il pourra ajouter à son equipe*/
+@SuppressWarnings("serial")
 public class SelecteurDePersonnage extends JPanel{
 	
 	private MenuPersonnage ecranPerso;
@@ -23,6 +17,7 @@ public class SelecteurDePersonnage extends JPanel{
 		refresh();
 	}
 	
+	/** Initialise ou refresh l'interface graphique*/
 	public void refresh(){
 		
 		this.tousLesPersos = new JPanelPerso();
@@ -40,6 +35,7 @@ public class SelecteurDePersonnage extends JPanel{
 		this.add(tousLesPersos);
 	}
 
+	/** Réactive un bouton lorsque le personnage qui était dans l'equipe viens d'etre retirer*/
 	public void reactiverBouton(PersonnageMenu perso) {
 		
 			for(BoutonPersonnage boutonPerso : this.tousLesPersos.obtenirComposantsBoutons()){

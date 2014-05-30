@@ -1,18 +1,16 @@
 package fr.projetS2_2013_2014_groupe3.menu.carte;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-
+import fr.projetS2_2013_2014_groupe3.exceptions.NumeroJoueurErronne;
+import fr.projetS2_2013_2014_groupe3.exceptions.PositionErronne;
 import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
+/** Interface du menu carte*/
+@SuppressWarnings("serial")
 public class MenuCarte extends JPanel {
 
 	private Fenetre fen;
@@ -23,7 +21,7 @@ public class MenuCarte extends JPanel {
 	
 	private BoutonCarte boutonCarte;
 
-	public MenuCarte(Fenetre fenetre, Partie partieEnCours) {
+	public MenuCarte(Fenetre fenetre, Partie partieEnCours) throws PositionErronne, NumeroJoueurErronne {
 
 		this.fen = fenetre;
 		this.partie = partieEnCours;

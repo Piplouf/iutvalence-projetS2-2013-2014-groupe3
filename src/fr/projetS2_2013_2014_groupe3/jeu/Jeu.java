@@ -1,15 +1,9 @@
 package fr.projetS2_2013_2014_groupe3.jeu;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.SwingUtilities;
 
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 
-
-
-
-
+/** Lanceur de l'application */
 public class Jeu {
 
 	public static void main(String[] args) {

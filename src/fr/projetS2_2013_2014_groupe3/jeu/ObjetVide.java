@@ -1,5 +1,6 @@
 package fr.projetS2_2013_2014_groupe3.jeu;
 
+/** Objet par défaut, il ne fait rien*/
 public class ObjetVide extends Objet {
 
 	public ObjetVide() {

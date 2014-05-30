@@ -1,6 +1,7 @@
 package fr.projetS2_2013_2014_groupe3.jeu;
 
 
+/** Carte à deux dimensions */
 public class Carte {
 
 	public static final int TAILLE_Y_DEFAUT = 8;
@@ -22,8 +23,7 @@ public class Carte {
 	}
 
 	/**
-	 * Permet de deplacer le personnage
-	 * @return 
+	 * Permet de deplacer le personnage d'une case à une autre sur la carte
 	 */
 	public boolean deplacerPersonnage(Position position, Personnage perso, int numeroJoueur){
 		if(deplacementEstPossible(position) && nombreDeDeplacementEstSuffisant(position, perso)){
@@ -65,6 +65,9 @@ public class Carte {
 		return null;
 	}
 	
+	/**
+	 * Retourne la case sur laquelle se trouve le personnage
+	 */
 	public Case obtenirCasePersonnage(Personnage perso){
 		for(int i = 0; i < obtenirTailleEnX();i++){
 			for(int j = 0; j < obtenirTailleEnY();j++){
@@ -85,21 +88,6 @@ public class Carte {
 				this.carte[position.obtenirX()][position.obtenirY()].estPleine()));
 	}
 	
-	
-	public void afficherCarte(){
-		for(int i=0; i < TAILLE_X_DEFAUT; i++){
-			for(int j=0; j < TAILLE_Y_DEFAUT; j++){
-				if(this.carte[i][j].estOccupe() instanceof Personnage)
-					System.out.print("▲");
-				else
-					System.out.print("◘");
-			}
-			System.out.println();
-		}
-	}
-	/**
-	 * Actualise l'affichage de la carte
-	 */
 	public Case[][] obtenirCarte(){
 		return this.carte;
 	}

@@ -10,6 +10,8 @@ import fr.projetS2_2013_2014_groupe3.jeu.Partie;
 import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
 import fr.projetS2_2013_2014_groupe3.menu.sac.MenuSac;
 
+/** Bouton qui modifier la partie en mode sac*/
+@SuppressWarnings("serial")
 public class BoutonSac extends JButton {
 	
 	private Fenetre fen;

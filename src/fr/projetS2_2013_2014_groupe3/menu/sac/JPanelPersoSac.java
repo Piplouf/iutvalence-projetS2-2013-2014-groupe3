@@ -5,12 +5,15 @@ import java.util.HashSet;
 
 import javax.swing.JPanel;
 
+/** JPanel avec deux methodes supplémentaires*/
+@SuppressWarnings("serial")
 public class JPanelPersoSac extends JPanel {
 
 	public JPanelPersoSac(){
 		super();
 	}
 	
+	/** Permet d'obtenir les BoutonSacPerso parmi tous les composants*/
 	public BoutonSacPerso[] obtenirComposantsBoutons(){
 		
 		HashSet<BoutonSacPerso> liste = new HashSet<BoutonSacPerso>();
@@ -26,6 +29,7 @@ public class JPanelPersoSac extends JPanel {
 		return listeBoutons;
 	}
 	
+	/** Permet d'obtenir tous les BoutonSacObjet parmi tous les composants*/
 	public BoutonSacObjet[] obtenirComposantsBoutonsSacOjet(){
 		
 		HashSet<BoutonSacObjet> liste = new HashSet<BoutonSacObjet>();

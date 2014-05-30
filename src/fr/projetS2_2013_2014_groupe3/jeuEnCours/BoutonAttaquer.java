@@ -6,22 +6,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import fr.projetS2_2013_2014_groupe3.jeu.Partie;
-import fr.projetS2_2013_2014_groupe3.menu.principal.Fenetre;
-
+/** Bouton servant quand le joueur souhaite attaquer*/
+@SuppressWarnings("serial")
 public class BoutonAttaquer extends JButton implements ActionListener{
-	
-	private Fenetre fen;
-	
-	private Partie partie;
 	
 	private InterfacePartie ecran;
 
-	public BoutonAttaquer(Fenetre fen, Partie partie, InterfacePartie ecranEnCours) {
+	public BoutonAttaquer(InterfacePartie ecranEnCours) {
 		
 		super("Attaquer");
-		this.fen = fen;
-		this.partie = partie;
 		this.ecran = ecranEnCours;
 		
 		this.setPreferredSize(new Dimension(400,50));
@@ -33,6 +26,7 @@ public class BoutonAttaquer extends JButton implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
+		this.ecran.modifierACliquerSurBoutonDeplacer(false);
 		this.ecran.estEnModeAttaque(true);
 		this.ecran.modifierMenuJoueurEnMenuAttaque(this.ecran.obtenirPersonnageCourant());
 	}
